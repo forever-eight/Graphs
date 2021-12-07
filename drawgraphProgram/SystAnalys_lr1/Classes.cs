@@ -51,9 +51,9 @@ namespace SystAnalys_lr1
             clearSheet();
             blackPen = new Pen(Color.Black);
             blackPen.Width = 2;
-            redPen = new Pen(Color.Red);
+            redPen = new Pen(Color.Blue);
             redPen.Width = 2;
-            darkGoldPen = new Pen(Color.DarkGoldenrod);
+            darkGoldPen = new Pen(Color.Gold);
             darkGoldPen.Width = 2;
             fo = new Font("Arial", 15);
             br = Brushes.Black;

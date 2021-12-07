@@ -36,6 +36,7 @@ namespace SystAnalys_lr1
             selectButton.Enabled = false;
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
+            drag.Enabled = false;
             deleteButton.Enabled = true;
             G.clearSheet();
             G.drawALLGraph(V, E);
@@ -479,8 +480,8 @@ namespace SystAnalys_lr1
         private void оАвтореToolStripMenuItem_Click(object sender, EventArgs e) 
         {
             MessageBox.Show(
-                   "Муханов Дмитрий \nМ8О-310Б \n8 факультет Маи ",
-                   "О Авторе",
+                   "Муханов Дмитрий, Лебедева Анна \nМ8О-310Б \n8 факультет Маи ",
+                   "О Авторах",
                    MessageBoxButtons.OK,
                    MessageBoxIcon.Information);
         }
