@@ -10,25 +10,28 @@ using System.Windows.Forms;
 
 namespace SystAnalys_lr1
 {
-    class Vertex
+    public class Vertex
     {
-        public int x, y;
-
-        public Vertex(int x, int y)
+        public int x, y,Number;
+        
+        public Vertex(int x, int y,int number)
         {
             this.x = x;
             this.y = y;
+            Number = number;            
         }
     }
 
-    class Edge
+    public class Line
     {
         public int v1, v2;
-
-        public Edge(int v1, int v2)
+        public string Name;
+        public int weight;
+        public Line(int v1, int v2,string name)
         {
             this.v1 = v1;
             this.v2 = v2;
+            this.Name = name;
         }
     }
 
@@ -82,7 +85,7 @@ namespace SystAnalys_lr1
             gr.DrawEllipse(redPen, (x - R), (y - R), 2 * R, 2 * R);
         }
 
-        public void drawEdge(Vertex V1, Vertex V2, Edge E, int numberE)
+        public void drawEdge(Vertex V1, Vertex V2, Line E, int numberE)
         {
             if (E.v1 == E.v2)
             {
@@ -101,7 +104,7 @@ namespace SystAnalys_lr1
             }
         }
 
-        public void drawALLGraph(List<Vertex> V, List<Edge> E)
+        public void drawALLGraph(List<Vertex> V, List<Line> E)
         {
 
             for (int i = 0; i < E.Count; i++)
@@ -125,7 +128,7 @@ namespace SystAnalys_lr1
             }
         }
 
-        public void fillAdjacencyMatrix(int numberV, List<Edge> E, int[,] matrix)
+        public void fillAdjacencyMatrix(int numberV, List<Line> E, int[,] matrix)
         {
             for (int i = 0; i < numberV; i++)
                 for (int j = 0; j < numberV; j++)
@@ -138,7 +141,7 @@ namespace SystAnalys_lr1
         }
 
         //заполняет матрицу инцидентности
-        public void fillIncidenceMatrix(int numberV, List<Edge> E, int[,] matrix)
+        public void fillIncidenceMatrix(int numberV, List<Line> E, int[,] matrix)
         {
             for (int i = 0; i < numberV; i++)
                 for (int j = 0; j < E.Count; j++)

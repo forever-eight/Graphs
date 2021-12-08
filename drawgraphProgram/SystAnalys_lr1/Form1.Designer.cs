@@ -177,12 +177,14 @@
             this.списокРеберToolStripMenuItem.Name = "списокРеберToolStripMenuItem";
             this.списокРеберToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.списокРеберToolStripMenuItem.Text = "Список ребер";
+            this.списокРеберToolStripMenuItem.Click += new System.EventHandler(this.списокРеберToolStripMenuItem_Click);
             // 
             // спискокВершинToolStripMenuItem
             // 
             this.спискокВершинToolStripMenuItem.Name = "спискокВершинToolStripMenuItem";
             this.спискокВершинToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.спискокВершинToolStripMenuItem.Text = "Спискок вершин";
+            this.спискокВершинToolStripMenuItem.Click += new System.EventHandler(this.спискокВершинToolStripMenuItem_Click);
             // 
             // выходИзПрограммыToolStripMenuItem
             // 
@@ -209,14 +211,14 @@
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // оАвтореToolStripMenuItem
             // 
             this.оАвтореToolStripMenuItem.Name = "оАвтореToolStripMenuItem";
-            this.оАвтореToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.оАвтореToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.оАвтореToolStripMenuItem.Text = "О авторе";
             this.оАвтореToolStripMenuItem.Click += new System.EventHandler(this.оАвтореToolStripMenuItem_Click);
             // 
@@ -247,7 +249,7 @@
             this.button2.Size = new System.Drawing.Size(36, 34);
             this.button2.TabIndex = 16;
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.redo_Click);
             // 
             // button1
             // 
@@ -258,7 +260,7 @@
             this.button1.Size = new System.Drawing.Size(36, 35);
             this.button1.TabIndex = 15;
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.undo_Click);
             // 
             // cycleButton
             // 

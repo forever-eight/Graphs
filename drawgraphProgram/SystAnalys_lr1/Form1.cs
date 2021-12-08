@@ -15,7 +15,7 @@ namespace SystAnalys_lr1
     {
         DrawGraph G;
         List<Vertex> V;
-        List<Edge> E;
+        List<Line> L;
         int[,] AMatrix; //матрица смежности
         int[,] IMatrix; //матрица инцидентности
         int selected1; //выбранные вершины, для соединения линиями
@@ -26,7 +26,7 @@ namespace SystAnalys_lr1
             InitializeComponent();
             V = new List<Vertex>();
             G = new DrawGraph(sheet.Width, sheet.Height);
-            E = new List<Edge>();
+            L = new List<Line>();
             sheet.Image = G.GetBitmap();
         }
 
@@ -39,7 +39,7 @@ namespace SystAnalys_lr1
             drag.Enabled = false;
             deleteButton.Enabled = true;
             G.clearSheet();
-            G.drawALLGraph(V, E);
+            G.drawALLGraph(V, L);
             sheet.Image = G.GetBitmap();
             selected1 = -1;
         }
@@ -52,7 +52,7 @@ namespace SystAnalys_lr1
             drawEdgeButton.Enabled = true;
             deleteButton.Enabled = true;
             G.clearSheet();
-            G.drawALLGraph(V, E);
+            G.drawALLGraph(V, L);
             sheet.Image = G.GetBitmap();
         }
 
@@ -64,7 +64,7 @@ namespace SystAnalys_lr1
             drawVertexButton.Enabled = true;
             deleteButton.Enabled = true;
             G.clearSheet();
-            G.drawALLGraph(V, E);
+            G.drawALLGraph(V, L);
             sheet.Image = G.GetBitmap();
             selected1 = -1;
             selected2 = -1;
@@ -79,7 +79,7 @@ namespace SystAnalys_lr1
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
             G.clearSheet();
-            G.drawALLGraph(V, E);
+            G.drawALLGraph(V, L);
             sheet.Image = G.GetBitmap();
         }
 
@@ -96,7 +96,7 @@ namespace SystAnalys_lr1
             if (MBSave == DialogResult.Yes)
             {
                 V.Clear();
-                E.Clear();
+                L.Clear();
                 G.clearSheet();
                 sheet.Image = G.GetBitmap();
             }
@@ -125,7 +125,7 @@ namespace SystAnalys_lr1
                         {
                             selected1 = -1;
                             G.clearSheet();
-                            G.drawALLGraph(V, E);
+                            G.drawALLGraph(V, L);
                             sheet.Image = G.GetBitmap();
                         }
                         if (selected1 == -1)
@@ -146,7 +146,7 @@ namespace SystAnalys_lr1
             }
             if (drawVertexButton.Enabled == false)
             {
-                V.Add(new Vertex(e.X, e.Y));
+                V.Add(new Vertex(e.X, e.Y, V.Count+1));
                 G.drawVertex(e.X, e.Y, V.Count.ToString());
                 sheet.Image = G.GetBitmap();
             }
@@ -169,8 +169,12 @@ namespace SystAnalys_lr1
                             {
                                 G.drawSelectedVertex(V[i].x, V[i].y);
                                 selected2 = i;
-                                E.Add(new Edge(selected1, selected2));
-                                G.drawEdge(V[selected1], V[selected2], E[E.Count - 1], E.Count - 1);
+                                Line l = new Line(selected1, selected2, Convert.ToString((char)('a' + L.Count())));
+                                L.Add(l);
+                                SelectEdgeForm newForm = new SelectEdgeForm(l);
+                                newForm.ShowDialog();
+
+                                G.drawEdge(V[selected1], V[selected2], L[L.Count - 1], L.Count - 1);
                                 selected1 = -1;
                                 selected2 = -1;
                                 sheet.Image = G.GetBitmap();
@@ -198,17 +202,17 @@ namespace SystAnalys_lr1
                 {
                     if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
                     {
-                        for (int j = 0; j < E.Count; j++)
+                        for (int j = 0; j < L.Count; j++)
                         {
-                            if ((E[j].v1 == i) || (E[j].v2 == i))
+                            if ((L[j].v1 == i) || (L[j].v2 == i))
                             {
-                                E.RemoveAt(j);
+                                L.RemoveAt(j);
                                 j--;
                             }
                             else
                             {
-                                if (E[j].v1 > i) E[j].v1--;
-                                if (E[j].v2 > i) E[j].v2--;
+                                if (L[j].v1 > i) L[j].v1--;
+                                if (L[j].v2 > i) L[j].v2--;
                             }
                         }
                         V.RemoveAt(i);
@@ -218,27 +222,27 @@ namespace SystAnalys_lr1
                 }
                 if (!flag)
                 {
-                    for (int i = 0; i < E.Count; i++)
+                    for (int i = 0; i < L.Count; i++)
                     {
-                        if (E[i].v1 == E[i].v2) 
+                        if (L[i].v1 == L[i].v2) 
                         {
-                            if ((Math.Pow((V[E[i].v1].x - G.R - e.X), 2) + Math.Pow((V[E[i].v1].y - G.R - e.Y), 2) <= ((G.R + 2) * (G.R + 2))) &&
-                                (Math.Pow((V[E[i].v1].x - G.R - e.X), 2) + Math.Pow((V[E[i].v1].y - G.R - e.Y), 2) >= ((G.R - 2) * (G.R - 2))))
+                            if ((Math.Pow((V[L[i].v1].x - G.R - e.X), 2) + Math.Pow((V[L[i].v1].y - G.R - e.Y), 2) <= ((G.R + 2) * (G.R + 2))) &&
+                                (Math.Pow((V[L[i].v1].x - G.R - e.X), 2) + Math.Pow((V[L[i].v1].y - G.R - e.Y), 2) >= ((G.R - 2) * (G.R - 2))))
                             {
-                                E.RemoveAt(i);
+                                L.RemoveAt(i);
                                 flag = true;
                                 break;
                             }
                         }
                         else 
                         {
-                            if (((e.X - V[E[i].v1].x) * (V[E[i].v2].y - V[E[i].v1].y) / (V[E[i].v2].x - V[E[i].v1].x) + V[E[i].v1].y) <= (e.Y + 4) &&
-                                ((e.X - V[E[i].v1].x) * (V[E[i].v2].y - V[E[i].v1].y) / (V[E[i].v2].x - V[E[i].v1].x) + V[E[i].v1].y) >= (e.Y - 4))
+                            if (((e.X - V[L[i].v1].x) * (V[L[i].v2].y - V[L[i].v1].y) / (V[L[i].v2].x - V[L[i].v1].x) + V[L[i].v1].y) <= (e.Y + 4) &&
+                                ((e.X - V[L[i].v1].x) * (V[L[i].v2].y - V[L[i].v1].y) / (V[L[i].v2].x - V[L[i].v1].x) + V[L[i].v1].y) >= (e.Y - 4))
                             {
-                                if ((V[E[i].v1].x <= V[E[i].v2].x && V[E[i].v1].x <= e.X && e.X <= V[E[i].v2].x) ||
-                                    (V[E[i].v1].x >= V[E[i].v2].x && V[E[i].v1].x >= e.X && e.X >= V[E[i].v2].x))
+                                if ((V[L[i].v1].x <= V[L[i].v2].x && V[L[i].v1].x <= e.X && e.X <= V[L[i].v2].x) ||
+                                    (V[L[i].v1].x >= V[L[i].v2].x && V[L[i].v1].x >= e.X && e.X >= V[L[i].v2].x))
                                 {
-                                    E.RemoveAt(i);
+                                    L.RemoveAt(i);
                                     flag = true;
                                     break;
                                 }
@@ -249,7 +253,7 @@ namespace SystAnalys_lr1
                 if (flag)
                 {
                     G.clearSheet();
-                    G.drawALLGraph(V, E);
+                    G.drawALLGraph(V, L);
                     sheet.Image = G.GetBitmap();
                 }
             }
@@ -257,35 +261,35 @@ namespace SystAnalys_lr1
         private void createAdjAndOut()
         {
             AMatrix = new int[V.Count, V.Count];
-            G.fillAdjacencyMatrix(V.Count, E, AMatrix);
+            G.fillAdjacencyMatrix(V.Count, L, AMatrix);
             listBoxMatrix.Items.Clear();
             string sOut = "    ";
             for (int i = 0; i < V.Count; i++)
-                sOut += (i + 1) + " ";
+                sOut += (i + 1) + "   ";
             listBoxMatrix.Items.Add(sOut);
             for (int i = 0; i < V.Count; i++)
             {
                 sOut = (i + 1) + " | ";
                 for (int j = 0; j < V.Count; j++)
-                    sOut += AMatrix[i, j] + " ";
+                    sOut += AMatrix[i, j] + "   ";
                 listBoxMatrix.Items.Add(sOut);
             }
         }
         private void createIncAndOut()
         {
-            if (E.Count > 0)
+            if (L.Count > 0)
             {
-                IMatrix = new int[V.Count, E.Count];
-                G.fillIncidenceMatrix(V.Count, E, IMatrix);
+                IMatrix = new int[V.Count, L.Count];
+                G.fillIncidenceMatrix(V.Count, L, IMatrix);
                 listBoxMatrix.Items.Clear();
                 string sOut = "    ";
-                for (int i = 0; i < E.Count; i++)
+                for (int i = 0; i < L.Count; i++)
                     sOut += (char)('a' + i) + "   ";
                 listBoxMatrix.Items.Add(sOut);
                 for (int i = 0; i < V.Count; i++)
                 {
                     sOut = (i + 1) + " | ";
-                    for (int j = 0; j < E.Count; j++)
+                    for (int j = 0; j < L.Count; j++)
                         sOut += IMatrix[i, j] + "   ";
                     listBoxMatrix.Items.Add(sOut);
                 }
@@ -305,12 +309,12 @@ namespace SystAnalys_lr1
                 {
                     for (int k = 0; k < V.Count; k++)
                         color[k] = 1;
-                    DFSchain(i, j, E, color, (i + 1).ToString());
+                    DFSchain(i, j, L, color, (i + 1).ToString());
                 }
         }
 
         //обход в глубину. поиск элементарных цепей. (1-white 2-black)
-        private void DFSchain(int u, int endV, List<Edge> E, int[] color, string s)
+        private void DFSchain(int u, int endV, List<Line> E, int[] color, string s)
         {
             //вершину не следует перекрашивать, если u == endV (возможно в нее есть несколько путей)
             if (u != endV)  
@@ -347,7 +351,7 @@ namespace SystAnalys_lr1
                     color[k] = 1;
                 List<int> cycle = new List<int>();
                 cycle.Add(i + 1);
-                DFScycle(i, i, E, color, -1, cycle);
+                DFScycle(i, i, L, color, -1, cycle);
             }
         }
 
@@ -357,7 +361,7 @@ namespace SystAnalys_lr1
         //из рассмотрения при обходе графа. В действительности это необходимо только на первом уровне рекурсии,
         //чтобы избежать вывода некорректных циклов вида: 1-2-1, при наличии, например, всего двух вершин.
 
-        private void DFScycle(int u, int endV, List<Edge> E, int[] color, int unavailableEdge, List<int> cycle)
+        private void DFScycle(int u, int endV, List<Line> E, int[] color, int unavailableEdge, List<int> cycle)
         {
             //если u == endV, то эту вершину перекрашивать не нужно, иначе мы в нее не вернемся, а вернуться необходимо
             if (u != endV)
@@ -444,7 +448,7 @@ namespace SystAnalys_lr1
         { 
 
          DialogResult result=DialogResult.No;
-            if (E.Count != 0)
+            if (L.Count != 0)
             {
                 result = MessageBox.Show(
                     "Сохранить проект?",
@@ -556,12 +560,75 @@ namespace SystAnalys_lr1
             createAdjAndOut();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void списокРеберToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sheet.Image != null)
+            {
+                SaveFileDialog savedialog = new SaveFileDialog();
+                savedialog.Title = "Сохранить список ребер как...";
+                savedialog.OverwritePrompt = true;
+                savedialog.CheckPathExists = true;
+                savedialog.Filter = "Text file|*.txt";
+                savedialog.ShowHelp = true;
+                if (savedialog.ShowDialog() == DialogResult.OK)
+                {
+                    TextWriter writer = null;
+                    try
+                    {
+                        writer = new StreamWriter(savedialog.FileName);
+                        foreach (var line in  L)
+                        {
+                            writer.WriteLine("Edge{"+line.Name+'{'+line.weight+','+line.v1+','+line.v2+"}}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно сохранить Список ребер", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    writer.Close();
+                }
+            }
+        }
+
+        private void спискокВершинToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sheet.Image != null)
+            {
+                SaveFileDialog savedialog = new SaveFileDialog();
+                savedialog.Title = "Сохранить список вершин как...";
+                savedialog.OverwritePrompt = true;
+                savedialog.CheckPathExists = true;
+                savedialog.Filter = "Text file|*.txt";
+                savedialog.ShowHelp = true;
+                if (savedialog.ShowDialog() == DialogResult.OK)
+                {
+                    TextWriter writer = null;
+                    try
+                    {
+                        writer = new StreamWriter(savedialog.FileName);
+                        foreach (var vertex in V)
+                        {
+                            writer.WriteLine("Vertex{"+vertex.Number+'{'+vertex.x+','+vertex.y+"}}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно сохранить Список вершин", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    writer.Close();
+                }
+            }
+        }
+
+        private void undo_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void redo_Click(object sender, EventArgs e)
         {
 
         }
