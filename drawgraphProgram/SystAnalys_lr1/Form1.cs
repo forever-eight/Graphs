@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace SystAnalys_lr1
 {
@@ -521,10 +522,6 @@ namespace SystAnalys_lr1
                 }
             }
 
-            
-
-
-
         }
 
         private void матрицуИнциденстностиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -551,7 +548,7 @@ namespace SystAnalys_lr1
                     }
                     catch
                     {
-                        MessageBox.Show("Невозможно сохранить матрицу Инцидентности", "Ошибка",
+                        MessageBox.Show("Невозможно сохранить матрицу инцидентности", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     writer.Close();
@@ -579,12 +576,12 @@ namespace SystAnalys_lr1
                         writer = new StreamWriter(savedialog.FileName);
                         foreach (var line in  L)
                         {
-                            writer.WriteLine("Edge{"+line.Name+'{'+line.weight+','+line.v1+','+line.v2+"}}");
+                            writer.WriteLine("Edge{"+line.Name+'('+line.weight+','+line.v1+','+line.v2+")}");
                         }
                     }
                     catch
                     {
-                        MessageBox.Show("Невозможно сохранить Список ребер", "Ошибка",
+                        MessageBox.Show("Невозможно сохранить список ребер", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     writer.Close();
@@ -610,12 +607,12 @@ namespace SystAnalys_lr1
                         writer = new StreamWriter(savedialog.FileName);
                         foreach (var vertex in V)
                         {
-                            writer.WriteLine("Vertex{"+vertex.Number+'{'+vertex.x+','+vertex.y+"}}");
+                            writer.WriteLine("Vertex{"+vertex.Number+'('+vertex.x+','+vertex.y+")}");
                         }
                     }
                     catch
                     {
-                        MessageBox.Show("Невозможно сохранить Список вершин", "Ошибка",
+                        MessageBox.Show("Невозможно сохранить список вершин", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     writer.Close();
@@ -631,6 +628,57 @@ namespace SystAnalys_lr1
         private void redo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void матрицейСмежностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void матрицейИнцидентностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void спискомРеберToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void спискомВершинToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sheet.Image != null)
+            {
+                OpenFileDialog opendialog = new OpenFileDialog();
+                opendialog.CheckPathExists = true;
+                opendialog.Filter = "Text file|*.txt";  
+                if (opendialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        TextReader reader = null;
+                        reader = new StreamReader(opendialog.FileName);
+                        V = new List<Vertex>();
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] numbers = Regex.Split(line, @"\D+");
+                            V.Add(new Vertex(Convert.ToInt32(numbers[2]), Convert.ToInt32(numbers[3]), Convert.ToInt32(numbers[1])));
+                        }
+                        reader.Close();
+                        foreach (Vertex vertex in V)
+                        {
+                            G.drawVertex(vertex.x, vertex.y, vertex.Number.ToString());
+                            sheet.Image = G.GetBitmap();
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно открыть граф, как список вершин", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

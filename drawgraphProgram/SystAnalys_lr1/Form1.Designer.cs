@@ -120,24 +120,28 @@
             this.матрицейСмежностиToolStripMenuItem.Name = "матрицейСмежностиToolStripMenuItem";
             this.матрицейСмежностиToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.матрицейСмежностиToolStripMenuItem.Text = "Матрицей смежности";
+            this.матрицейСмежностиToolStripMenuItem.Click += new System.EventHandler(this.матрицейСмежностиToolStripMenuItem_Click);
             // 
             // матрицейИнцидентностиToolStripMenuItem
             // 
             this.матрицейИнцидентностиToolStripMenuItem.Name = "матрицейИнцидентностиToolStripMenuItem";
             this.матрицейИнцидентностиToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.матрицейИнцидентностиToolStripMenuItem.Text = "Матрицей инцидентности";
+            this.матрицейИнцидентностиToolStripMenuItem.Click += new System.EventHandler(this.матрицейИнцидентностиToolStripMenuItem_Click);
             // 
             // спискомРеберToolStripMenuItem
             // 
             this.спискомРеберToolStripMenuItem.Name = "спискомРеберToolStripMenuItem";
             this.спискомРеберToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.спискомРеберToolStripMenuItem.Text = "Списком ребер";
+            this.спискомРеберToolStripMenuItem.Click += new System.EventHandler(this.спискомРеберToolStripMenuItem_Click);
             // 
             // спискомВершинToolStripMenuItem
             // 
             this.спискомВершинToolStripMenuItem.Name = "спискомВершинToolStripMenuItem";
             this.спискомВершинToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.спискомВершинToolStripMenuItem.Text = "Списком вершин";
+            this.спискомВершинToolStripMenuItem.Click += new System.EventHandler(this.спискомВершинToolStripMenuItem_Click);
             // 
             // сохранитьГрафКакToolStripMenuItem
             // 

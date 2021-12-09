@@ -12,7 +12,7 @@ namespace SystAnalys_lr1
 {
     public class Vertex
     {
-        public int x, y,Number;
+        public int x, y, Number;
         
         public Vertex(int x, int y,int number)
         {
