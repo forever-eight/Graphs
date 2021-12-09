@@ -17,6 +17,7 @@ namespace SystAnalys_lr1
         DrawGraph G;
         List<Vertex> V;
         List<Line> L;
+        ListCondition ArrayCondition;
         int[,] AMatrix; //матрица смежности
         int[,] IMatrix; //матрица инцидентности
         int selected1; //выбранные вершины, для соединения линиями
@@ -28,6 +29,7 @@ namespace SystAnalys_lr1
             V = new List<Vertex>();
             G = new DrawGraph(sheet.Width, sheet.Height);
             L = new List<Line>();
+            ArrayCondition = new ListCondition();
             sheet.Image = G.GetBitmap();
         }
 
@@ -149,6 +151,7 @@ namespace SystAnalys_lr1
             {
                 V.Add(new Vertex(e.X, e.Y, V.Count+1));
                 G.drawVertex(e.X, e.Y, V.Count.ToString());
+                ArrayCondition.Add(new Condition(V, L));
                 sheet.Image = G.GetBitmap();
             }
             if (drawEdgeButton.Enabled == false)
@@ -178,6 +181,7 @@ namespace SystAnalys_lr1
                                 G.drawEdge(V[selected1], V[selected2], L[L.Count - 1], L.Count - 1);
                                 selected1 = -1;
                                 selected2 = -1;
+                                ArrayCondition.Add(new Condition(V, L));
                                 sheet.Image = G.GetBitmap();
                                 break;
                             }
@@ -255,6 +259,7 @@ namespace SystAnalys_lr1
                 {
                     G.clearSheet();
                     G.drawALLGraph(V, L);
+                    ArrayCondition.Add(new Condition(V, L));
                     sheet.Image = G.GetBitmap();
                 }
             }
@@ -485,7 +490,7 @@ namespace SystAnalys_lr1
         private void оАвтореToolStripMenuItem_Click(object sender, EventArgs e) 
         {
             MessageBox.Show(
-                   "Муханов Дмитрий, Лебедева Анна \nМ8О-310Б \n8 факультет Маи ",
+                   "Муханов Дмитрий, Лебедева Анна, Семешкин Данила, Жаворонков Артем \nМ8О-310Б \n8 факультет Маи ",
                    "О Авторах",
                    MessageBoxButtons.OK,
                    MessageBoxIcon.Information);
@@ -620,14 +625,35 @@ namespace SystAnalys_lr1
             }
         }
 
+        private void undoredo_Draw()
+        {
+            G.clearSheet();
+            if (ArrayCondition.Array.Count != 0)
+            {
+                V = ArrayCondition.Array.Last().V;
+                L = ArrayCondition.Array.Last().L;
+                G.drawALLGraph(V, L);
+                sheet.Image = G.GetBitmap();
+            }
+            else
+            {
+                V = new List<Vertex>();
+                L = new List<Line>();
+                G.drawALLGraph(V, L);
+                sheet.Image = G.GetBitmap();
+            }
+        }
+
         private void undo_Click(object sender, EventArgs e)
         {
-
+            ArrayCondition.RemoveFromEnd();
+            undoredo_Draw();
         }
 
         private void redo_Click(object sender, EventArgs e)
         {
-
+            ArrayCondition.Redo();
+            undoredo_Draw();
         }
 
         private void матрицейСмежностиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -718,6 +744,7 @@ namespace SystAnalys_lr1
                     {
                         MessageBox.Show("Невозможно открыть граф, как список вершин", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        
                     }
                 }
             }

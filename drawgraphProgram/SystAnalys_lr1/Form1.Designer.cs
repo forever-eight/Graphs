@@ -50,8 +50,8 @@
             this.оАвтореToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.redo = new System.Windows.Forms.Button();
+            this.undo = new System.Windows.Forms.Button();
             this.cycleButton = new System.Windows.Forms.Button();
             this.chainButton = new System.Windows.Forms.Button();
             this.buttonInc = new System.Windows.Forms.Button();
@@ -244,27 +244,27 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "Матрица\r\nинцидентности";
             // 
-            // button2
+            // redo
             // 
-            this.button2.BackgroundImage = global::SystAnalys_lr1.Properties.Resources.redoarrow_rehace_15471;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.Location = new System.Drawing.Point(533, 27);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(36, 34);
-            this.button2.TabIndex = 16;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.redo_Click);
+            this.redo.BackgroundImage = global::SystAnalys_lr1.Properties.Resources.redoarrow_rehace_15471;
+            this.redo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.redo.Location = new System.Drawing.Point(533, 27);
+            this.redo.Name = "redo";
+            this.redo.Size = new System.Drawing.Size(36, 34);
+            this.redo.TabIndex = 16;
+            this.redo.UseVisualStyleBackColor = true;
+            this.redo.Click += new System.EventHandler(this.redo_Click);
             // 
-            // button1
+            // undo
             // 
-            this.button1.BackgroundImage = global::SystAnalys_lr1.Properties.Resources.undoarrow_undo_1534;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.Location = new System.Drawing.Point(491, 26);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(36, 35);
-            this.button1.TabIndex = 15;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.undo_Click);
+            this.undo.BackgroundImage = global::SystAnalys_lr1.Properties.Resources.undoarrow_undo_1534;
+            this.undo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.undo.Location = new System.Drawing.Point(491, 26);
+            this.undo.Name = "undo";
+            this.undo.Size = new System.Drawing.Size(36, 35);
+            this.undo.TabIndex = 15;
+            this.undo.UseVisualStyleBackColor = true;
+            this.undo.Click += new System.EventHandler(this.undo_Click);
             // 
             // cycleButton
             // 
@@ -395,9 +395,9 @@
             this.panel1.AllowDrop = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.panel1.Controls.Add(this.drag);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.redo);
             this.panel1.Controls.Add(this.selectButton);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.undo);
             this.panel1.Controls.Add(this.deleteALLButton);
             this.panel1.Controls.Add(this.deleteButton);
             this.panel1.Controls.Add(this.drawEdgeButton);
@@ -468,8 +468,8 @@
         private System.Windows.Forms.ToolStripMenuItem оАвтореToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button undo;
+        private System.Windows.Forms.Button redo;
         private System.Windows.Forms.Button drawVertexButton;
         private System.Windows.Forms.Button drawEdgeButton;
         private System.Windows.Forms.Button deleteButton;

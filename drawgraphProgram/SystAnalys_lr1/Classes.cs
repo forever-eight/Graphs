@@ -10,6 +10,106 @@ using System.Windows.Forms;
 
 namespace SystAnalys_lr1
 {
+    public class Condition
+    {
+        private List<Vertex> _v;
+        private List<Line> _l;
+        public List<Condition> ThisDeleteCondition = new List<Condition>();
+
+        public List<Vertex> V
+        {
+            get => new List<Vertex>(_v);
+            private set
+            {
+                _v = value;
+            }
+        }
+
+        public List<Line> L
+        {
+            get => new List<Line>(_l);
+            private set
+            {
+                _l = value;
+            }
+        }
+
+
+        public Condition(List<Vertex> v, List<Line> l)
+        {
+            _v = new List<Vertex>(v);
+            _l = new List<Line>(l);
+        }
+    }
+
+    public class ListCondition
+    {
+        private List<Condition> ConditionArray;
+
+        public List<Condition> Array
+        {
+            get => new List<Condition>(ConditionArray);
+        }
+
+        //коллекция удаленных состояний
+        private List<Condition> DeleteCollection = new List<Condition>();
+
+        public List<Condition> DeletedCollection
+        {
+            get => new List<Condition>(DeleteCollection);
+        }
+
+        public ListCondition()
+        {
+            ConditionArray = new List<Condition>();
+        }
+
+        public void RemoveFromEnd()
+        {
+            if (ConditionArray.Count != 0)
+            {
+                var elem = ConditionArray.Last().ThisDeleteCondition;
+                if (elem.Count != 0)
+                {
+                    ConditionArray.Add(elem.Last());
+                    elem.RemoveAt(elem.Count - 1);
+                    ConditionArray.Last().ThisDeleteCondition = new List<Condition>(ConditionArray[ConditionArray.Count - 2].ThisDeleteCondition);
+                    elem.Clear();
+                }
+                else
+                {
+                    DeleteCollection.Add(ConditionArray.Last());
+                    ConditionArray.RemoveAt(ConditionArray.Count - 1);
+                }
+            }
+        }
+
+        public void Add(Condition condition)
+        {
+            if (DeleteCollection.Count != 0)
+            {
+                if (ConditionArray.Count == 0)
+                {
+                    ConditionArray.Add(new Condition(new List<Vertex>(), new List<Line>()));
+                }
+
+                ConditionArray.Last().ThisDeleteCondition = new List<Condition>(DeleteCollection);
+                DeleteCollection.Clear();
+            }
+
+            ConditionArray.Add(condition);
+        }
+
+        public void Redo()
+        {
+            if (DeleteCollection.Count != 0)
+            {
+                ConditionArray.Add(DeleteCollection.Last());
+                DeleteCollection.RemoveAt(DeleteCollection.Count - 1);
+            }
+        }
+    }
+
     public class Vertex
     {
         public int x, y, Number;
