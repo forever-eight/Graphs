@@ -127,6 +127,7 @@ namespace SystAnalys_lr1
         public int v1, v2;
         public string Name;
         public int weight;
+        public string direction;
         public Line(int v1, int v2, string name)
         {
             this.v1 = v1;

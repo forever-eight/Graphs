@@ -17,6 +17,9 @@ namespace SystAnalys_lr1
         {
             InitializeComponent();
             line = v;
+            radioButton1.Text =(line.v1).ToString()+ " -> "+(line.v2).ToString();
+            radioButton1.Checked = true;
+            radioButton2.Text= (line.v2).ToString() + " -> " + (line.v1).ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -24,6 +27,10 @@ namespace SystAnalys_lr1
             try
             {
                 line.weight = Convert.ToInt32(textBox1.Text);
+                if (radioButton1.Checked)
+                    line.direction = radioButton1.Text;
+                else if (radioButton2.Checked)
+                    line.direction = radioButton2.Text;
             }
             catch
             {
@@ -48,5 +55,7 @@ namespace SystAnalys_lr1
                 button1.PerformClick();
             }
         }
+
+
     }
 }
