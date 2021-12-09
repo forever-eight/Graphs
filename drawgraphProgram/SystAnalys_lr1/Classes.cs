@@ -14,7 +14,7 @@ namespace SystAnalys_lr1
     {
         public int x, y, Number;
         
-        public Vertex(int x, int y,int number)
+        public Vertex(int x, int y, int number)
         {
             this.x = x;
             this.y = y;
@@ -27,7 +27,7 @@ namespace SystAnalys_lr1
         public int v1, v2;
         public string Name;
         public int weight;
-        public Line(int v1, int v2,string name)
+        public Line(int v1, int v2, string name)
         {
             this.v1 = v1;
             this.v2 = v2;

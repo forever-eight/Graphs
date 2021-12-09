@@ -632,7 +632,49 @@ namespace SystAnalys_lr1
 
         private void матрицейСмежностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (sheet.Image != null)
+            {
+                /*      1   2   3   4   5   
+                    1 | 0   1   0   0   0   
+                    2 | 1   0   1   1   0   
+                    3 | 0   1   0   1   1   
+                    4 | 0   1   1   0   0   
+                    5 | 0   0   1   0   0   */
+                OpenFileDialog opendialog = new OpenFileDialog();
+                opendialog.CheckPathExists = true;
+                opendialog.Filter = "Text file|*.txt";
+                if (opendialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        TextReader reader = null;
+                        reader = new StreamReader(opendialog.FileName);
+                        V = new List<Vertex>();
+                        string line;
+                        //while ((line = reader.ReadLine()) != null)
+                        //{
+                        line = reader.ReadLine();
+                        string[] numbers = Regex.Split(line, @"\D+");
+                        Random r = new Random();
+                        for(int i = 1; i < numbers.Length - 1; i++)
+                        {
+                            V.Add(new Vertex(r.Next(this.Size.Width - 300), r.Next(this.Size.Height - 200), Convert.ToInt32(numbers[i])));
+                        }
+                        //}
+                        reader.Close();
+                        foreach (Vertex vertex in V)
+                        {
+                            G.drawVertex(vertex.x, vertex.y, vertex.Number.ToString());
+                            sheet.Image = G.GetBitmap();
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно открыть граф, как список вершин", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void матрицейИнцидентностиToolStripMenuItem_Click(object sender, EventArgs e)
