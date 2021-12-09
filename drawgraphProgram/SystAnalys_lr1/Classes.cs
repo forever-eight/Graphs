@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -141,7 +142,7 @@ namespace SystAnalys_lr1
         Bitmap bitmap;
         Pen blackPen;
         Pen redPen;
-        Pen darkGoldPen;
+        Pen GreenPen;
         Graphics gr;
         Font fo;
         Brush br;
@@ -157,8 +158,8 @@ namespace SystAnalys_lr1
             blackPen.Width = 2;
             redPen = new Pen(Color.Blue);
             redPen.Width = 2;
-            darkGoldPen = new Pen(Color.Gold);
-            darkGoldPen.Width = 2;
+            GreenPen = new Pen(Color.Green);
+            GreenPen.Width = 2;
             fo = new Font("Arial", 15);
             br = Brushes.Black;
         }
@@ -188,37 +189,55 @@ namespace SystAnalys_lr1
 
         public void drawEdge(Vertex V1, Vertex V2, Line E, int numberE)
         {
+            GreenPen.CustomEndCap = new AdjustableArrowCap(10, 10);
+            
+
+
+
             if (E.v1 == E.v2)
             {
-                gr.DrawArc(darkGoldPen, (V1.x - 2 * R), (V1.y - 2 * R), 2 * R, 2 * R, 90, 270);
+                gr.DrawArc(GreenPen, (V1.x - 2 * R), (V1.y - 2 * R), 2 * R, 2 * R, 90, 270);
                 point = new PointF(V1.x - (int)(2.75 * R), V1.y - (int)(2.75 * R));
                 gr.DrawString(((char)('a' + numberE)).ToString(), fo, br, point);
                 drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
             }
             else
             {
-                gr.DrawLine(darkGoldPen, V1.x, V1.y, V2.x, V2.y);
+                string[] words = E.direction.Split(new char[] { ' ' });
+                int FVertexNumber = Convert.ToInt32(words[0]);
+                if(FVertexNumber==V1.Number)
+                    gr.DrawLine(GreenPen, V1.x, V1.y, V2.x, V2.y);
+                else if(FVertexNumber==V2.Number)
+                    gr.DrawLine(GreenPen, V2.x, V2.y, V1.x, V1.y);
                 point = new PointF((V1.x + V2.x) / 2, (V1.y + V2.y) / 2);
                 gr.DrawString(((char)('a' + numberE)).ToString(), fo, br, point);
                 drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
                 drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
+                
             }
         }
 
         public void drawALLGraph(List<Vertex> V, List<Line> E)
         {
-
+            GreenPen.CustomEndCap = new AdjustableArrowCap(10, 10);
             for (int i = 0; i < E.Count; i++)
             {
+                string[] words = E[i].direction.Split(new char[] { ' ' });
+                int FVertexNumber = Convert.ToInt32(words[0]);
                 if (E[i].v1 == E[i].v2)
                 {
-                    gr.DrawArc(darkGoldPen, (V[E[i].v1].x - 2 * R), (V[E[i].v1].y - 2 * R), 2 * R, 2 * R, 90, 270);
+                    gr.DrawArc(GreenPen, (V[E[i].v1].x - 2 * R), (V[E[i].v1].y - 2 * R), 2 * R, 2 * R, 90, 270);
                     point = new PointF(V[E[i].v1].x - (int)(2.75 * R), V[E[i].v1].y - (int)(2.75 * R));
                     gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
                 }
                 else
                 {
-                    gr.DrawLine(darkGoldPen, V[E[i].v1].x, V[E[i].v1].y, V[E[i].v2].x, V[E[i].v2].y);
+
+                    if (FVertexNumber == V[E[i].v1].Number)
+                        gr.DrawLine(GreenPen, V[E[i].v1].x, V[E[i].v1].y, V[E[i].v2].x, V[E[i].v2].y);
+                    else if (FVertexNumber == V[E[i].v2].Number)
+                        gr.DrawLine(GreenPen, V[E[i].v2].x, V[E[i].v2].y, V[E[i].v1].x, V[E[i].v1].y);
+
                     point = new PointF((V[E[i].v1].x + V[E[i].v2].x) / 2, (V[E[i].v1].y + V[E[i].v2].y) / 2);
                     gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
                 }
