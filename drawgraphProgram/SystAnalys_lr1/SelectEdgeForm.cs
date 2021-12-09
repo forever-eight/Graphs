@@ -17,9 +17,9 @@ namespace SystAnalys_lr1
         {
             InitializeComponent();
             line = v;
-            radioButton1.Text =(line.v1).ToString()+ " -> "+(line.v2).ToString();
+            radioButton1.Text =(line.v1+1).ToString()+ " -> "+(line.v2+1).ToString();
             radioButton1.Checked = true;
-            radioButton2.Text= (line.v2).ToString() + " -> " + (line.v1).ToString();
+            radioButton2.Text= (line.v2+1).ToString() + " -> " + (line.v1+1).ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
