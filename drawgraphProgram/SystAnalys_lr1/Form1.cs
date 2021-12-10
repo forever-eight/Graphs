@@ -71,7 +71,7 @@ namespace SystAnalys_lr1
             sheet.Image = G.GetBitmap();
             selected1 = -1;
             selected2 = -1;
-            
+
         }
 
         //кнопка - удалить элемент
@@ -149,7 +149,7 @@ namespace SystAnalys_lr1
             }
             if (drawVertexButton.Enabled == false)
             {
-                V.Add(new Vertex(e.X, e.Y, V.Count+1));
+                V.Add(new Vertex(e.X, e.Y, V.Count + 1));
                 G.drawVertex(e.X, e.Y, V.Count.ToString());
                 ArrayCondition.Add(new Condition(V, L));
                 sheet.Image = G.GetBitmap();
@@ -202,7 +202,7 @@ namespace SystAnalys_lr1
             }
             if (deleteButton.Enabled == false)
             {
-                bool flag = false; 
+                bool flag = false;
                 for (int i = 0; i < V.Count; i++)
                 {
                     if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
@@ -229,7 +229,7 @@ namespace SystAnalys_lr1
                 {
                     for (int i = 0; i < L.Count; i++)
                     {
-                        if (L[i].v1 == L[i].v2) 
+                        if (L[i].v1 == L[i].v2)
                         {
                             if ((Math.Pow((V[L[i].v1].x - G.R - e.X), 2) + Math.Pow((V[L[i].v1].y - G.R - e.Y), 2) <= ((G.R + 2) * (G.R + 2))) &&
                                 (Math.Pow((V[L[i].v1].x - G.R - e.X), 2) + Math.Pow((V[L[i].v1].y - G.R - e.Y), 2) >= ((G.R - 2) * (G.R - 2))))
@@ -239,7 +239,7 @@ namespace SystAnalys_lr1
                                 break;
                             }
                         }
-                        else 
+                        else
                         {
                             if (((e.X - V[L[i].v1].x) * (V[L[i].v2].y - V[L[i].v1].y) / (V[L[i].v2].x - V[L[i].v1].x) + V[L[i].v1].y) <= (e.Y + 4) &&
                                 ((e.X - V[L[i].v1].x) * (V[L[i].v2].y - V[L[i].v1].y) / (V[L[i].v2].x - V[L[i].v1].x) + V[L[i].v1].y) >= (e.Y - 4))
@@ -323,7 +323,7 @@ namespace SystAnalys_lr1
         private void DFSchain(int u, int endV, List<Line> E, int[] color, string s)
         {
             //вершину не следует перекрашивать, если u == endV (возможно в нее есть несколько путей)
-            if (u != endV)  
+            if (u != endV)
                 color[u] = 2;
             else
             {
@@ -451,9 +451,9 @@ namespace SystAnalys_lr1
         }
 
         private void выходИзПрограммыToolStripMenuItem_Click(object sender, EventArgs e)
-        { 
+        {
 
-         DialogResult result=DialogResult.No;
+            DialogResult result = DialogResult.No;
             if (L.Count != 0)
             {
                 result = MessageBox.Show(
@@ -468,7 +468,7 @@ namespace SystAnalys_lr1
 
             if (result == DialogResult.Yes)
             {
-                
+
                 картинкуToolStripMenuItem_Click(sender, e);
                 this.Close();
             }
@@ -481,13 +481,13 @@ namespace SystAnalys_lr1
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                    "version 1.0.0 \n"+Convert.ToString(DateTime.Now),
+                    "version 1.0.0 \n" + Convert.ToString(DateTime.Now),
                     " О Программе",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
         }
 
-        private void оАвтореToolStripMenuItem_Click(object sender, EventArgs e) 
+        private void оАвтореToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                    "Муханов Дмитрий, Лебедева Анна, Семешкин Данила, Жаворонков Артем \nМ8О-310Б \n8 факультет Маи ",
@@ -509,11 +509,11 @@ namespace SystAnalys_lr1
                 savedialog.ShowHelp = true;
                 if (savedialog.ShowDialog() == DialogResult.OK)
                 {
-                    TextWriter writer=null;
+                    TextWriter writer = null;
                     try
                     {
                         writer = new StreamWriter(savedialog.FileName);
-                        foreach(var item in listBoxMatrix.Items)
+                        foreach (var item in listBoxMatrix.Items)
                         {
                             writer.WriteLine(item.ToString());
                         }
@@ -579,9 +579,9 @@ namespace SystAnalys_lr1
                     try
                     {
                         writer = new StreamWriter(savedialog.FileName);
-                        foreach (var line in  L)
+                        foreach (var line in L)
                         {
-                            writer.WriteLine("Edge{"+line.Name+'('+line.weight+','+line.v1+','+line.v2+")}");
+                            writer.WriteLine("Edge{" + line.Name + '(' + line.weight + ',' + line.v1 + ',' + line.v2 + ")}");
                         }
                     }
                     catch
@@ -612,7 +612,7 @@ namespace SystAnalys_lr1
                         writer = new StreamWriter(savedialog.FileName);
                         foreach (var vertex in V)
                         {
-                            writer.WriteLine("Vertex{"+vertex.Number+'('+vertex.x+','+vertex.y+")}");
+                            writer.WriteLine("Vertex{" + vertex.Number + '(' + vertex.x + ',' + vertex.y + ")}");
                         }
                     }
                     catch
@@ -660,12 +660,6 @@ namespace SystAnalys_lr1
         {
             if (sheet.Image != null)
             {
-                /*      1   2   3   4   5   
-                    1 | 0   1   0   0   0   
-                    2 | 1   0   1   1   0   
-                    3 | 0   1   0   1   1   
-                    4 | 0   1   1   0   0   
-                    5 | 0   0   1   0   0   */
                 OpenFileDialog opendialog = new OpenFileDialog();
                 opendialog.CheckPathExists = true;
                 opendialog.Filter = "Text file|*.txt";
@@ -676,23 +670,27 @@ namespace SystAnalys_lr1
                         TextReader reader = null;
                         reader = new StreamReader(opendialog.FileName);
                         V = new List<Vertex>();
+                        L = new List<Line>();
                         string line;
-                        //while ((line = reader.ReadLine()) != null)
-                        //{
                         line = reader.ReadLine();
                         string[] numbers = Regex.Split(line, @"\D+");
                         Random r = new Random();
-                        for(int i = 1; i < numbers.Length - 1; i++)
+                        for (int i = 1; i < numbers.Length - 1; i++)
                         {
                             V.Add(new Vertex(r.Next(this.Size.Width - 300), r.Next(this.Size.Height - 200), Convert.ToInt32(numbers[i])));
                         }
-                        //}
-                        reader.Close();
-                        foreach (Vertex vertex in V)
+                        while ((line = reader.ReadLine()) != null)
                         {
-                            G.drawVertex(vertex.x, vertex.y, vertex.Number.ToString());
-                            sheet.Image = G.GetBitmap();
+                            numbers = Regex.Split(line, @"\D+");
+                            for (int i = Convert.ToInt32(numbers[0]); i < numbers.Length - 1; i++)
+                            {
+                                if (Convert.ToInt32(numbers[i]) == 1)
+                                {
+                                    L.Add(new Line(Convert.ToInt32(numbers[0]), i, Convert.ToString((char)('a' + L.Count()))));
+                                }
+                            }
                         }
+                        reader.Close();
                     }
                     catch
                     {
@@ -719,7 +717,7 @@ namespace SystAnalys_lr1
             {
                 OpenFileDialog opendialog = new OpenFileDialog();
                 opendialog.CheckPathExists = true;
-                opendialog.Filter = "Text file|*.txt";  
+                opendialog.Filter = "Text file|*.txt";
                 if (opendialog.ShowDialog() == DialogResult.OK)
                 {
                     try
@@ -744,7 +742,7 @@ namespace SystAnalys_lr1
                     {
                         MessageBox.Show("Невозможно открыть граф, как список вершин", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        
+
                     }
                 }
             }
