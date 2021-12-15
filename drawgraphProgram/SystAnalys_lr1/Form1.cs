@@ -691,10 +691,17 @@ namespace SystAnalys_lr1
                             }
                         }
                         reader.Close();
+                        G.clearSheet();
+                        for(int i = 0; i < L.Count; i++)
+                        {
+                            L[i].direction = (L[i].v1 + " -> " + L[i].v2).ToString();
+                            G.drawEdge(V[L[i].v1 - 1], V[L[i].v2 - 1], L[i], i);
+                        }
+                        sheet.Image = G.GetBitmap();
                     }
                     catch
                     {
-                        MessageBox.Show("Невозможно открыть граф, как список вершин", "Ошибка",
+                        MessageBox.Show("Невозможно открыть граф в виде матрицы смежности", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -703,12 +710,54 @@ namespace SystAnalys_lr1
 
         private void матрицейИнцидентностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void спискомРеберToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (sheet.Image != null)
+            {
+                OpenFileDialog opendialog = new OpenFileDialog();
+                opendialog.CheckPathExists = true;
+                opendialog.Filter = "Text file|*.txt";
+                if (opendialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        TextReader reader = null;
+                        reader = new StreamReader(opendialog.FileName);
+                        L = new List<Line>();
+                        V = new List<Vertex>();
+                        List<int> vertex = new List<int>();
+                        string line;
+                        Random r = new Random();
+                        for (int i = 0; (line = reader.ReadLine()) != null; i++)
+                        {
+                            string[] numbers = Regex.Split(line, @"\W+");
+                            L.Add(new Line(Convert.ToInt32(numbers[3]), Convert.ToInt32(numbers[4]), numbers[1]));
+                            L[i].weight = Convert.ToInt32(numbers[2]);
+                            L[i].direction = (L[i].v1 + " -> " + L[i].v2).ToString();
+                            vertex.Add(Convert.ToInt32(numbers[3]));
+                            vertex.Add(Convert.ToInt32(numbers[4]));
+                        }
+                        reader.Close();
+                        IEnumerable<int> distinct_vertex = vertex.Distinct();
+                        foreach (int item in distinct_vertex)
+                        {
+                            V.Add(new Vertex(r.Next(this.Size.Width - 300), r.Next(this.Size.Height - 200), item));
+                        }
+                        G.clearSheet();
+                        G.drawALLGraph(V, L);
+                        sheet.Image = G.GetBitmap();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно открыть граф, как список рёбер", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                    }
+                }
+            }
         }
 
         private void спискомВершинToolStripMenuItem_Click(object sender, EventArgs e)
@@ -732,6 +781,7 @@ namespace SystAnalys_lr1
                             V.Add(new Vertex(Convert.ToInt32(numbers[2]), Convert.ToInt32(numbers[3]), Convert.ToInt32(numbers[1])));
                         }
                         reader.Close();
+                        G.clearSheet();
                         foreach (Vertex vertex in V)
                         {
                             G.drawVertex(vertex.x, vertex.y, vertex.Number.ToString());

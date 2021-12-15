@@ -190,9 +190,6 @@ namespace SystAnalys_lr1
         public void drawEdge(Vertex V1, Vertex V2, Line E, int numberE)
         {
             GreenPen.CustomEndCap = new AdjustableArrowCap(10, 10);
-            
-
-
 
             if (E.v1 == E.v2)
             {
