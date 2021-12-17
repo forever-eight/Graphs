@@ -20,6 +20,7 @@ namespace SystAnalys_lr1
             radioButton1.Text =(line.v1+1).ToString()+ " -> "+(line.v2+1).ToString();
             radioButton1.Checked = true;
             radioButton2.Text= (line.v2+1).ToString() + " -> " + (line.v1+1).ToString();
+            textBox1.Text = "1";
         }
 
         private void button1_Click(object sender, EventArgs e)
