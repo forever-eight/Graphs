@@ -490,7 +490,7 @@ namespace SystAnalys_lr1
         private void оАвтореToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                   "Муханов Дмитрий, Лебедева Анна, Семешкин Данила, Жаворонков Артем \nМ8О-310Б \n8 факультет Маи ",
+                   "Муханов Дмитрий, Лебедева Анна, Цыкина Мария, Семешкин Данила, Жаворонков Артем \nМ8О-310Б \n8 факультет Маи ",
                    "О Авторах",
                    MessageBoxButtons.OK,
                    MessageBoxIcon.Information);
@@ -677,7 +677,13 @@ namespace SystAnalys_lr1
                         Random r = new Random();
                         for (int i = 1; i < numbers.Length - 1; i++)
                         {
-                            V.Add(new Vertex(r.Next(this.Size.Width - 300), r.Next(this.Size.Height - 200), Convert.ToInt32(numbers[i])));
+                            Vertex ve = new Vertex(
+                                r.Next(this.Size.Width - 300), 
+                                r.Next(this.Size.Height - 200),
+                                Convert.ToInt32(numbers[i])
+                            );
+
+                            V.Add(ve);
                         }
                         while ((line = reader.ReadLine()) != null)
                         {
@@ -686,7 +692,13 @@ namespace SystAnalys_lr1
                             {
                                 if (Convert.ToInt32(numbers[i]) == 1)
                                 {
-                                    L.Add(new Line(Convert.ToInt32(numbers[0]), i, Convert.ToString((char)('a' + L.Count()))));
+                                    Line li = new Line(
+                                        Convert.ToInt32(numbers[0]),
+                                        i, 
+                                        Convert.ToString((char)('a' + L.Count()))
+                                    );
+
+                                    L.Add(li);
                                 }
                             }
                         }
@@ -710,7 +722,119 @@ namespace SystAnalys_lr1
 
         private void матрицейИнцидентностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+           if (sheet.Image != null)
+            {
+                OpenFileDialog opendialog = new OpenFileDialog();
+                opendialog.CheckPathExists = true;
+                opendialog.Filter = "Text file|*.txt";
+                if (opendialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        TextReader reader = null;
+                        reader = new StreamReader(opendialog.FileName);
+
+                        V = new List<Vertex>();
+                        L = new List<Line>();
+
+                        string line = reader.ReadLine();
+
+                        string[] names = Regex.Split(line, @"\s+");
+
+                        Random r = new Random();
+                        
+                        List<List<int>> N = new List<List<int>>();
+                        List<int> row = null;
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            row = new List<int>();
+                            string[] numbers = Regex.Split(line, @"\D+");   
+                            
+                            for (int i = 0; i < numbers.Length - 1; i++)
+                            {
+                                row.Add(Convert.ToInt32(numbers[i]));
+                            }
+                            
+                            N.Add(row);
+                        }
+
+                        reader.Close();
+
+                        
+                        for (int j = 0; j < N.Count; j++)
+                        {
+                            N[j][0]--;
+
+                            Vertex ve = new Vertex(
+                                r.Next(this.Size.Width - 300), 
+                                r.Next(this.Size.Height - 200),
+                                N[j][0]
+                            );
+
+                            V.Add(ve);
+                        }
+                        
+
+                        for (int i = 1; i < names.Length - 1; i++)
+                        {
+                            int From = -1;
+                            int To = -1;
+
+                            Line li = null;
+
+                            for (int j = 0; j < N.Count; j++)
+                            {
+                                if (N[j][i] == 0) {
+                                    continue;
+                                }
+                                
+                                if (From == -1) {
+                                    From = N[j][0];
+
+                                    continue;
+                                }
+
+                                To = N[j][0];
+
+                                break;
+                            }
+
+                            if (From == -1) {
+                                continue;
+                            }
+
+                            if (To == -1) {
+                                To = From;
+                            }
+
+                            li = new Line(
+                                From,
+                                To, 
+                                names[i]
+                            );
+
+                            
+                            L.Add(li);
+                        }
+
+                        G.clearSheet();
+
+                        for(int i = 0; i < L.Count; i++)
+                        {
+                            L[i].direction = (L[i].v1 + " -> " + L[i].v2).ToString();
+                            G.drawEdge(V[L[i].v1], V[L[i].v2], L[i], i);
+                        }
+                       
+                        sheet.Image = G.GetBitmap();
+                    }
+                      catch
+                    {
+                        MessageBox.Show("Невозможно открыть граф в виде матрицы смежности", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                 }
+            }
         }
 
         private void спискомРеберToolStripMenuItem_Click(object sender, EventArgs e)
