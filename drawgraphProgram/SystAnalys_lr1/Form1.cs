@@ -680,7 +680,7 @@ namespace SystAnalys_lr1
                             Vertex ve = new Vertex(
                                 r.Next(this.Size.Width - 300), 
                                 r.Next(this.Size.Height - 200),
-                                Convert.ToInt32(numbers[i])
+                                Convert.ToInt32(numbers[i])-1
                             );
 
                             V.Add(ve);
@@ -693,8 +693,8 @@ namespace SystAnalys_lr1
                                 if (Convert.ToInt32(numbers[i]) == 1)
                                 {
                                     Line li = new Line(
-                                        Convert.ToInt32(numbers[0]),
-                                        i, 
+                                        Convert.ToInt32(numbers[0]) - 1,
+                                        i - 1, 
                                         Convert.ToString((char)('a' + L.Count()))
                                     );
 
@@ -707,7 +707,7 @@ namespace SystAnalys_lr1
                         for(int i = 0; i < L.Count; i++)
                         {
                             L[i].direction = (L[i].v1 + " -> " + L[i].v2).ToString();
-                            G.drawEdge(V[L[i].v1 - 1], V[L[i].v2 - 1], L[i], i);
+                            G.drawEdge(V[L[i].v1], V[L[i].v2], L[i], i);
                         }
                         sheet.Image = G.GetBitmap();
                     }
