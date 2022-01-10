@@ -183,13 +183,15 @@ namespace SystAnalys_lr1
                     }
                 }
                 else
+
                 {
-                    V[dragSelectedIndex].x = e.X;
-                    V[dragSelectedIndex].y = e.Y;
+                    V[dragSelectedIndex] = new Vertex(e.X, e.Y, V[dragSelectedIndex].Number);
                     dragSelectedIndex = -1;
+                    ArrayCondition.Add(new Condition(V, L));
                     G.clearSheet();
                     G.drawALLGraph(V, L);
                     sheet.Image = G.GetBitmap();
+
                 }
 
             }
