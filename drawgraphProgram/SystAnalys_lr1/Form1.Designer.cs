@@ -389,6 +389,7 @@
             this.drag.Size = new System.Drawing.Size(55, 55);
             this.drag.TabIndex = 17;
             this.drag.UseVisualStyleBackColor = true;
+            this.drag.Click += new System.EventHandler(this.drag_Click);
             // 
             // panel1
             // 

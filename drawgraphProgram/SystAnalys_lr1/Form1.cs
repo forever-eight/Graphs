@@ -22,6 +22,7 @@ namespace SystAnalys_lr1
         int[,] IMatrix; //матрица инцидентности
         int selected1; //выбранные вершины, для соединения линиями
         int selected2;
+        int dragSelectedIndex = -1; // отлов выбранной вершины
 
         public Form1()
         {
@@ -39,7 +40,7 @@ namespace SystAnalys_lr1
             selectButton.Enabled = false;
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
-            drag.Enabled = false;
+            drag.Enabled = true;
             deleteButton.Enabled = true;
             G.clearSheet();
             G.drawALLGraph(V, L);
@@ -54,6 +55,7 @@ namespace SystAnalys_lr1
             selectButton.Enabled = true;
             drawEdgeButton.Enabled = true;
             deleteButton.Enabled = true;
+            drag.Enabled = true;
             G.clearSheet();
             G.drawALLGraph(V, L);
             sheet.Image = G.GetBitmap();
@@ -66,6 +68,7 @@ namespace SystAnalys_lr1
             selectButton.Enabled = true;
             drawVertexButton.Enabled = true;
             deleteButton.Enabled = true;
+            drag.Enabled = true;
             G.clearSheet();
             G.drawALLGraph(V, L);
             sheet.Image = G.GetBitmap();
@@ -81,6 +84,7 @@ namespace SystAnalys_lr1
             selectButton.Enabled = true;
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
             G.clearSheet();
             G.drawALLGraph(V, L);
             sheet.Image = G.GetBitmap();
@@ -93,6 +97,7 @@ namespace SystAnalys_lr1
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
             deleteButton.Enabled = true;
+            drag.Enabled = true;
             const string message = "Вы действительно хотите полностью удалить граф?";
             const string caption = "Удаление";
             var MBSave = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -103,6 +108,19 @@ namespace SystAnalys_lr1
                 G.clearSheet();
                 sheet.Image = G.GetBitmap();
             }
+        }
+
+        //Кнопка - drag and drop ( перемещение )
+        private void drag_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = false;
+            G.clearSheet();
+            G.drawALLGraph(V, L);
+            sheet.Image = G.GetBitmap();
         }
 
         //кнопка - матрица смежности
@@ -146,6 +164,34 @@ namespace SystAnalys_lr1
                         }
                     }
                 }
+            }
+            if(drag.Enabled == false)
+            {
+
+                if(dragSelectedIndex == -1)
+                {
+                    for (int i = 0; i < V.Count; i++)
+                    {
+                        if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                        {
+                            G.drawSelectedVertex(V[i].x, V[i].y);
+                            dragSelectedIndex = i;
+                            sheet.Image = G.GetBitmap();
+                            break;
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    V[dragSelectedIndex].x = e.X;
+                    V[dragSelectedIndex].y = e.Y;
+                    dragSelectedIndex = -1;
+                    G.clearSheet();
+                    G.drawALLGraph(V, L);
+                    sheet.Image = G.GetBitmap();
+                }
+
             }
             if (drawVertexButton.Enabled == false)
             {
@@ -921,5 +967,7 @@ namespace SystAnalys_lr1
                 }
             }
         }
+
+    
     }
 }
