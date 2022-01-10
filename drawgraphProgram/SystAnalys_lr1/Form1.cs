@@ -105,6 +105,7 @@ namespace SystAnalys_lr1
             {
                 V.Clear();
                 L.Clear();
+                ArrayCondition.Add(new Condition(V, L));
                 G.clearSheet();
                 sheet.Image = G.GetBitmap();
             }
