@@ -45,6 +45,7 @@
             this.спискокВершинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходИзПрограммыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.задачиТеорииГрафовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оАвтореToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +65,7 @@
             this.selectButton = new System.Windows.Forms.Button();
             this.drag = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.StopSearch = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.panel1.SuspendLayout();
@@ -199,9 +201,18 @@
             // 
             // задачиТеорииГрафовToolStripMenuItem
             // 
+            this.задачиТеорииГрафовToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2});
             this.задачиТеорииГрафовToolStripMenuItem.Name = "задачиТеорииГрафовToolStripMenuItem";
             this.задачиТеорииГрафовToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.задачиТеорииГрафовToolStripMenuItem.Text = "Задачи теории графов";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem2.Text = "Поиск в ширину";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -408,12 +419,24 @@
             this.panel1.Size = new System.Drawing.Size(579, 86);
             this.panel1.TabIndex = 18;
             // 
+            // StopSearch
+            // 
+            this.StopSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.StopSearch.Image = global::SystAnalys_lr1.Properties.Resources.delete;
+            this.StopSearch.Location = new System.Drawing.Point(951, 601);
+            this.StopSearch.Name = "StopSearch";
+            this.StopSearch.Size = new System.Drawing.Size(55, 55);
+            this.StopSearch.TabIndex = 19;
+            this.StopSearch.UseVisualStyleBackColor = true;
+            this.StopSearch.Click += new System.EventHandler(this.StopSearch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Thistle;
             this.ClientSize = new System.Drawing.Size(1256, 684);
+            this.Controls.Add(this.StopSearch);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -478,6 +501,8 @@
         private System.Windows.Forms.Button selectButton;
         private System.Windows.Forms.Button drag;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.Button StopSearch;
     }
 }
 

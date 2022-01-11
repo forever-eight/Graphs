@@ -18,10 +18,11 @@ namespace SystAnalys_lr1
         List<Vertex> V;
         List<Line> L;
         ListCondition ArrayCondition;
+        List<string> Way;
         int[,] AMatrix; //матрица смежности
         int[,] IMatrix; //матрица инцидентности
-        int selected1; //выбранные вершины, для соединения линиями
-        int selected2;
+        int selected1 = -1; //выбранные вершины, для соединения линиями
+        int selected2 = -1;
         int dragSelectedIndex = -1; // отлов выбранной вершины
 
         public Form1()
@@ -30,8 +31,10 @@ namespace SystAnalys_lr1
             V = new List<Vertex>();
             G = new DrawGraph(sheet.Width, sheet.Height);
             L = new List<Line>();
+            Way = new List<string>();
             ArrayCondition = new ListCondition();
             sheet.Image = G.GetBitmap();
+            StopSearch.Visible = false;
         }
 
         //кнопка - выбрать вершину
@@ -135,8 +138,89 @@ namespace SystAnalys_lr1
             createIncAndOut();
         }
 
+        private void BFS()
+        {
+            var shortest = new int[1000];
+            for (int i = 0; i < shortest.Length; ++i)
+            {
+                shortest[i] = -1;
+            }
+            shortest[selected1] = 0;
+
+            var list = new List<int>();
+            var parent = new int[1000];
+            var q = new Queue<int>();
+
+            q.Enqueue(selected1);
+            while (q.Count != 0)
+            {
+                var item = q.Dequeue();
+                for (int i = 0; i < AMatrix.GetUpperBound(1) + 1; ++i)
+                {
+                    if (AMatrix[item, i] == 1)
+                    {
+                        list.Add(i);
+                    }
+                }
+
+                foreach(var a in list)
+                {
+                    if (shortest[a] == -1)
+                    {
+                        parent[a] = item;
+                        shortest[a] = parent[a] + 1;
+                        q.Enqueue(a);
+                    }
+                }
+
+                list.Clear();
+            }
+
+            StringBuilder str = new StringBuilder();
+            var num = selected2;
+            str.Append(num);
+            while (num != selected1)
+            {
+                num = parent[num];
+                str.Append(num);
+            }
+
+
+            MessageBox.Show(str.ToString());
+        }
+
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
+            if (toolStripMenuItem2.Enabled == false)
+            {
+                for (int i = 0; i < V.Count; i++)
+                {
+                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                    {
+                        if (selected1 == -1)
+                        {
+                            G.drawSelectedVertex(V[i].x, V[i].y);
+                            selected1 = i;
+                            sheet.Image = G.GetBitmap();
+                            break;
+                        }
+                        if (selected2 == -1)
+                        {
+                            G.drawSelectedVertex(V[i].x, V[i].y);
+                            selected2 = i;
+
+                            BFS();
+
+                            selected1 = -1;
+                            selected2 = -1;
+                            toolStripMenuItem2.Enabled = true;
+                            sheet.Image = G.GetBitmap();
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (selectButton.Enabled == false)
             {
                 for (int i = 0; i < V.Count; i++)
@@ -971,6 +1055,27 @@ namespace SystAnalys_lr1
             }
         }
 
-    
+        //Поиск в ширину
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            toolStripMenuItem2.Enabled = false;
+        }
+
+        private void StopSearch_Click(object sender, EventArgs e)
+        {
+            StopSearch.Visible = false;
+            panel1.Visible = true;
+        }
     }
 }
