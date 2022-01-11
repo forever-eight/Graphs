@@ -696,67 +696,7 @@ namespace SystAnalys_lr1
         }
 
 
-        private void списокРеберToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (sheet.Image != null)
-            {
-                SaveFileDialog savedialog = new SaveFileDialog();
-                savedialog.Title = "Сохранить список ребер как...";
-                savedialog.OverwritePrompt = true;
-                savedialog.CheckPathExists = true;
-                savedialog.Filter = "Text file|*.txt";
-                savedialog.ShowHelp = true;
-                if (savedialog.ShowDialog() == DialogResult.OK)
-                {
-                    TextWriter writer = null;
-                    try
-                    {
-                        writer = new StreamWriter(savedialog.FileName);
-                        foreach (var line in L)
-                        {
-                            writer.WriteLine("Edge{" + line.Name + '(' + line.weight + ',' + line.v1 + ',' + line.v2 + ")}");
-                        }
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Невозможно сохранить список ребер", "Ошибка",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    writer.Close();
-                }
-            }
-        }
-
-        private void спискокВершинToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (sheet.Image != null)
-            {
-                SaveFileDialog savedialog = new SaveFileDialog();
-                savedialog.Title = "Сохранить список вершин как...";
-                savedialog.OverwritePrompt = true;
-                savedialog.CheckPathExists = true;
-                savedialog.Filter = "Text file|*.txt";
-                savedialog.ShowHelp = true;
-                if (savedialog.ShowDialog() == DialogResult.OK)
-                {
-                    TextWriter writer = null;
-                    try
-                    {
-                        writer = new StreamWriter(savedialog.FileName);
-                        foreach (var vertex in V)
-                        {
-                            writer.WriteLine("Vertex{" + vertex.Number + '(' + vertex.x + ',' + vertex.y + ")}");
-                        }
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Невозможно сохранить список вершин", "Ошибка",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    writer.Close();
-                }
-            }
-        }
+       
 
         private void undoredo_Draw()
         {
@@ -1076,6 +1016,59 @@ namespace SystAnalys_lr1
         {
             StopSearch.Visible = false;
             panel1.Visible = true;
+        }
+
+        private void списокРёберИВершинToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sheet.Image != null)
+            {
+                SaveFileDialog savedialog = new SaveFileDialog();
+                savedialog.Title = "Сохранить список ребер и вершин как...";
+                savedialog.OverwritePrompt = true;
+                savedialog.CheckPathExists = true;
+                savedialog.Filter = "Text file|*.txt";
+                savedialog.ShowHelp = true;
+                if (savedialog.ShowDialog() == DialogResult.OK)
+                {
+                    TextWriter writer = null;
+                    try
+                    {
+                        writer = new StreamWriter(savedialog.FileName);
+                        foreach (var line in L)
+                        {
+                            int v1 = 0, x1 = 0, y1 = 0, v2 = 0, x2 = 0, y2 = 0;
+                            foreach (var vertex1 in V)
+                            {
+                                if (vertex1.Number == line.v1 + 1)
+                                {
+                                    v1 = vertex1.Number;
+                                    x1 = vertex1.x;
+                                    y1 = vertex1.y;
+                                    break;
+                                }
+                            }
+                            foreach (var vertex2 in V)
+                            {
+                                if (vertex2.Number == line.v2 + 1)
+                                {
+                                    v2 = vertex2.Number;
+                                    x2 = vertex2.x;
+                                    y2 = vertex2.y;
+                                    break;
+                                }
+                            }
+                            writer.WriteLine("Edge{" + line.Name + '(' + line.weight + ',' + "Vertex{" + v1 + '(' + x1 + ',' + y1 + ")}"
+                                + ',' + "Vertex{" + v2 + '(' + x2 + ',' + y2 + ")}" + ")}");
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно сохранить список ребер и вершин", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    writer.Close();
+                }
+            }
         }
     }
 }
