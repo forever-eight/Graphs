@@ -35,6 +35,7 @@
             this.открытьФайлПредставленныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.матрицейСмежностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.матрицейИнцидентностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.спискмРёберИВершинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьГрафКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.матрицуСмежностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.матрицуИнциденстностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,7 @@
             this.drag = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.StopSearch = new System.Windows.Forms.Button();
-            this.спискмРёберИВершинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.алгоритмДейкстрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.panel1.SuspendLayout();
@@ -128,6 +129,13 @@
             this.матрицейИнцидентностиToolStripMenuItem.Text = "Матрицей инцидентности";
             this.матрицейИнцидентностиToolStripMenuItem.Click += new System.EventHandler(this.матрицейИнцидентностиToolStripMenuItem_Click);
             // 
+            // спискмРёберИВершинToolStripMenuItem
+            // 
+            this.спискмРёберИВершинToolStripMenuItem.Name = "спискмРёберИВершинToolStripMenuItem";
+            this.спискмРёберИВершинToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.спискмРёберИВершинToolStripMenuItem.Text = "Списком рёбер и вершин";
+            this.спискмРёберИВершинToolStripMenuItem.Click += new System.EventHandler(this.спискмРёберИВершинToolStripMenuItem_Click);
+            // 
             // сохранитьГрафКакToolStripMenuItem
             // 
             this.сохранитьГрафКакToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -177,7 +185,8 @@
             // задачиТеорииГрафовToolStripMenuItem
             // 
             this.задачиТеорииГрафовToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2});
+            this.toolStripMenuItem2,
+            this.алгоритмДейкстрыToolStripMenuItem});
             this.задачиТеорииГрафовToolStripMenuItem.Name = "задачиТеорииГрафовToolStripMenuItem";
             this.задачиТеорииГрафовToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.задачиТеорииГрафовToolStripMenuItem.Text = "Задачи теории графов";
@@ -185,7 +194,7 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(186, 22);
             this.toolStripMenuItem2.Text = "Поиск в ширину";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -405,12 +414,12 @@
             this.StopSearch.UseVisualStyleBackColor = true;
             this.StopSearch.Click += new System.EventHandler(this.StopSearch_Click);
             // 
-            // спискмРёберИВершинToolStripMenuItem
+            // алгоритмДейкстрыToolStripMenuItem
             // 
-            this.спискмРёберИВершинToolStripMenuItem.Name = "спискмРёберИВершинToolStripMenuItem";
-            this.спискмРёберИВершинToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.спискмРёберИВершинToolStripMenuItem.Text = "Списком рёбер и вершин";
-            this.спискмРёберИВершинToolStripMenuItem.Click += new System.EventHandler(this.спискмРёберИВершинToolStripMenuItem_Click);
+            this.алгоритмДейкстрыToolStripMenuItem.Name = "алгоритмДейкстрыToolStripMenuItem";
+            this.алгоритмДейкстрыToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.алгоритмДейкстрыToolStripMenuItem.Text = "Алгоритм Дейкстры";
+            this.алгоритмДейкстрыToolStripMenuItem.Click += new System.EventHandler(this.алгоритмДейкстрыToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -483,6 +492,7 @@
         private System.Windows.Forms.Button StopSearch;
         private System.Windows.Forms.ToolStripMenuItem списокРёберИВершинToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem спискмРёберИВершинToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem алгоритмДейкстрыToolStripMenuItem;
     }
 }
 

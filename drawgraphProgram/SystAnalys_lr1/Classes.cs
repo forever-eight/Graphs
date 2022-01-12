@@ -190,6 +190,7 @@ namespace SystAnalys_lr1
         public void drawEdge(Vertex V1, Vertex V2, Line E, int numberE)
         {
             ///TODO:падает при закрытии!
+            
             GreenPen.CustomEndCap = new AdjustableArrowCap(10, 10);
 
             if (E.v1 == E.v2)
@@ -213,6 +214,16 @@ namespace SystAnalys_lr1
                 drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
                 
             }
+        }
+
+        public void DrawRedEdge(Vertex V1, Vertex V2)
+        {
+            Pen RedPen = new Pen(Color.Red);
+
+            gr.DrawLine(RedPen, V1.x, V1.y, V2.x, V2.y);
+
+            drawVertex(V1.x, V1.y, V1.Number.ToString());
+            drawVertex(V2.x, V2.y, V2.Number.ToString());
         }
 
         public void drawALLGraph(List<Vertex> V, List<Line> E)

@@ -138,7 +138,7 @@ namespace SystAnalys_lr1
             createIncAndOut();
         }
 
-        private void BFS()
+        private StringBuilder BFS()
         {
             var shortest = new int[1000];
             for (int i = 0; i < shortest.Length; ++i)
@@ -186,12 +186,16 @@ namespace SystAnalys_lr1
             }
 
 
-            MessageBox.Show(str.ToString());
+            return str;
         }
 
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
-            if (toolStripMenuItem2.Enabled == false)
+            if(алгоритмДейкстрыToolStripMenuItem.Enabled == false)
+            {
+
+            }
+            else if (toolStripMenuItem2.Enabled == false)
             {
                 for (int i = 0; i < V.Count; i++)
                 {
@@ -206,10 +210,16 @@ namespace SystAnalys_lr1
                         }
                         if (selected2 == -1)
                         {
+                            StringBuilder result;
                             G.drawSelectedVertex(V[i].x, V[i].y);
                             selected2 = i;
 
-                            BFS();
+                            result = BFS();
+
+                            for(int indexVertex = result.Length - 2; indexVertex >= 0; indexVertex--)
+                            {
+                                G.DrawRedEdge(V[result[indexVertex] - '0'], V[result[indexVertex + 1] - '0']);
+                            }
 
                             selected1 = -1;
                             selected2 = -1;
@@ -978,6 +988,9 @@ namespace SystAnalys_lr1
         {
             StopSearch.Visible = false;
             panel1.Visible = true;
+            G.clearSheet();
+            G.drawALLGraph(V, L);
+            sheet.Image = G.GetBitmap();
         }
 
         private void списокРёберИВершинToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1073,6 +1086,22 @@ namespace SystAnalys_lr1
                     }
                 }
             }
+        }
+
+        private void алгоритмДейкстрыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            алгоритмДейкстрыToolStripMenuItem.Enabled = false;
         }
     }
 }
