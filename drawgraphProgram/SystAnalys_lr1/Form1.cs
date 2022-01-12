@@ -957,44 +957,6 @@ namespace SystAnalys_lr1
             }
         }
 
-        private void спискомВершинToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (sheet.Image != null)
-            {
-                OpenFileDialog opendialog = new OpenFileDialog();
-                opendialog.CheckPathExists = true;
-                opendialog.Filter = "Text file|*.txt";
-                if (opendialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        TextReader reader = null;
-                        reader = new StreamReader(opendialog.FileName);
-                        V = new List<Vertex>();
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            string[] numbers = Regex.Split(line, @"\D+");
-                            V.Add(new Vertex(Convert.ToInt32(numbers[2]), Convert.ToInt32(numbers[3]), Convert.ToInt32(numbers[1])));
-                        }
-                        reader.Close();
-                        G.clearSheet();
-                        foreach (Vertex vertex in V)
-                        {
-                            G.drawVertex(vertex.x, vertex.y, vertex.Number.ToString());
-                            sheet.Image = G.GetBitmap();
-                        }
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Невозможно открыть граф, как список вершин", "Ошибка",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    }
-                }
-            }
-        }
-
         //Поиск в ширину
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -1067,6 +1029,48 @@ namespace SystAnalys_lr1
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     writer.Close();
+                }
+            }
+        }
+
+        private void спискмРёберИВершинToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sheet.Image != null)
+            {
+                OpenFileDialog opendialog = new OpenFileDialog();
+                opendialog.CheckPathExists = true;
+                opendialog.Filter = "Text file|*.txt";
+                if (opendialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        TextReader reader = null;
+                        reader = new StreamReader(opendialog.FileName);
+                        L = new List<Line>();
+                        V = new List<Vertex>();
+                        List<int> vertex = new List<int>(), X = new List<int>(), Y = new List<int>();
+                        string line;
+                        Random r = new Random();
+                        for (int i = 0; (line = reader.ReadLine()) != null; i++)
+                        {
+                            string[] numbers = Regex.Split(line, @"\W+");
+                            L.Add(new Line(Convert.ToInt32(numbers[4]), Convert.ToInt32(numbers[8]), numbers[1]));
+                            L[i].weight = Convert.ToInt32(numbers[2]);
+                            L[i].direction = (L[i].v1 + " -> " + L[i].v2).ToString();
+                            V.Add(new Vertex(Convert.ToInt32(numbers[5]), Convert.ToInt32(numbers[6]), Convert.ToInt32(numbers[4])));
+                            V.Add(new Vertex(Convert.ToInt32(numbers[9]), Convert.ToInt32(numbers[10]), Convert.ToInt32(numbers[8])));
+                        }
+                        reader.Close();
+                        G.clearSheet();
+                        G.drawALLGraph(V, L);
+                        sheet.Image = G.GetBitmap();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно открыть граф, как список рёбер", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
                 }
             }
         }
