@@ -138,6 +138,89 @@ namespace SystAnalys_lr1
             createIncAndOut();
         }
 
+        private void Deikstra()
+        {
+            var shortest = new int[1000];
+            for (int i = 0; i < shortest.Length; ++i)
+            {
+                shortest[i] = -1;
+            }
+            shortest[selected1] = 0;
+
+            var list = new List<int>();
+            var q = new Queue<int>();
+            var used = new bool[1000];
+
+            q.Enqueue(selected1);
+            while (q.Count != 0)
+            {
+
+                var item = q.Dequeue();
+                for (int i = 0; i < AMatrix.GetUpperBound(1) + 1; ++i)
+                {
+                    if (AMatrix[item, i] == 1)
+                    {
+                        list.Add(i);
+                    }
+                }
+                list.Sort((a, b)=> 
+                {
+                    int l1 = 0, l2 = 0;
+                    
+                    foreach(var edge in L)
+                    {
+                        if(edge.v1 == item && edge.v2 == a || edge.v1 == a && edge.v2 == item)
+                        {
+                            l1 = edge.weight;
+                        }
+
+                        if (edge.v1 == item && edge.v2 == b || edge.v1 == b && edge.v2 == item)
+                        {
+                            l2 = edge.weight;
+                        }
+
+                    }
+                    if (l1 > l2)
+                    {
+                        return 1;
+                    }
+                    else if (l1 < l2) return -1;
+                    else return 0;
+                });
+
+                foreach (var a in list)
+                {
+                    int len = 0;
+
+                    foreach(var i in L)
+                    {
+                        if (i.v1 == item && i.v2 == a || i.v1 == a && i.v2 == item)
+                        {
+                            len = i.weight;
+                            break;
+                        }
+                    }
+
+                    if (shortest[a] == -1 || shortest[a] > shortest[item] + len)
+                    {
+                        shortest[a] = shortest[item] + len;
+                        q.Enqueue(a);
+                    }
+
+                }
+
+                used[item] = true;
+                list.Clear();
+            }
+            string str = "";
+
+            foreach(var i in shortest) {
+                str += i + "\n";
+            }
+
+            MessageBox.Show(str);
+        }
+
         private StringBuilder BFS()
         {
             var shortest = new int[1000];
@@ -193,7 +276,20 @@ namespace SystAnalys_lr1
         {
             if(алгоритмДейкстрыToolStripMenuItem.Enabled == false)
             {
+                for (int i = 0; i < V.Count; i++)
+                {
+                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                    {
+                        G.drawSelectedVertex(V[i].x, V[i].y);
+                        selected1 = i;
 
+                        Deikstra();
+                        selected1 = -1;
+                        алгоритмДейкстрыToolStripMenuItem.Enabled = true;
+                        sheet.Image = G.GetBitmap();
+                        break;
+                    }
+                }
             }
             else if (toolStripMenuItem2.Enabled == false)
             {
