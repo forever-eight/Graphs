@@ -138,6 +138,89 @@ namespace SystAnalys_lr1
             createIncAndOut();
         }
 
+        private int HeuFunc(int a, int shortest)
+        {
+            return Math.Abs(a - selected2) + shortest;
+        }
+
+        private string AStar()
+        {
+            var q = new Dictionary<int, int>();
+            var parent = new int[1000];
+            var shortest = new int[1000];
+            bool flag = false;
+
+            for (int i = 0; i < shortest.Length; ++i)
+            {
+                shortest[i] = -1;
+            }
+
+            q[Heuristic(selected1)] = selected1;
+            shortest[selected1] = 0;
+
+            while (q.Count != 0)
+            {
+                int item = 0;
+                int key = 0;
+
+                foreach (var a in q.OrderBy(a => a.Key))
+                {
+                    item = a.Value;
+                    key = a.Key;
+                    break;
+                }
+                q.Remove(key);
+
+                for (int i = 0; i < AMatrix.GetUpperBound(1) + 1; ++i)
+                {
+                    if (AMatrix[item, i] == 1)
+                    {
+                        int len = 0;
+
+                        foreach (var j in L)
+                        {
+                            if (j.v1 == item && j.v2 == i || j.v1 == i && j.v2 == item)
+                            {
+                                len = j.weight;
+                                break;
+                            }
+                        }
+
+                        if (i == selected2)
+                        {
+                            shortest[i] = shortest[item] + len;
+                            parent[i] = item;
+                            flag = true;
+                            break;
+                        }
+
+                        // значение всегда меньше если возвращаться на уровень выше
+                        if (shortest[i] == -1 || shortest[i] > shortest[item] + len)
+                        {
+                            shortest[i] = shortest[item] + len;
+                            parent[i] = item;
+                            q[HeuFunc(i, shortest[i])] = i;
+                        }
+                    }
+                }
+
+
+                if (flag) break;
+            }
+
+            StringBuilder str = new StringBuilder();
+            var num = selected2;
+            str.Append(num);
+            while (num != selected1)
+            {
+                num = parent[num];
+                str.Append(num);
+            }
+
+            MessageBox.Show(shortest[selected2].ToString());
+            return str.ToString();
+        }
+
         private void Deikstra()
         {
             var shortest = new int[1000];
@@ -212,13 +295,26 @@ namespace SystAnalys_lr1
                 used[item] = true;
                 list.Clear();
             }
-            string str = "";
+            StringBuilder str = new StringBuilder();
 
-            foreach(var i in shortest) {
-                str += i + "\n";
+            for (int i = 0; i < shortest.Length; ++i)
+            {
+                if (shortest[i] != -1)
+                {
+                    str.Append(selected1 + 1)
+                            .Append("->")
+                            .Append(i + 1)
+                            .Append(": ")
+                            .Append(shortest[i])
+                            .Append('\n');
+                }
+                else
+                {
+                    break;
+                }
             }
-
-            MessageBox.Show(str);
+            
+            MessageBox.Show(str.ToString());
         }
 
         private StringBuilder BFS()
@@ -386,6 +482,13 @@ namespace SystAnalys_lr1
                         {
                             G.drawSelectedVertex(V[i].x, V[i].y);
                             selected2 = i;
+
+                            string result = AStar();
+
+                            for (int indexVertex = result.Length - 2; indexVertex >= 0; indexVertex--)
+                            {
+                                G.DrawRedEdge(V[result[indexVertex] - '0'], V[result[indexVertex + 1] - '0']);
+                            }
 
                             selected1 = -1;
                             selected2 = -1;
