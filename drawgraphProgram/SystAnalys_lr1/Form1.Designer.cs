@@ -65,6 +65,8 @@
             this.drag = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.StopSearch = new System.Windows.Forms.Button();
+            this.astarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.panel1.SuspendLayout();
@@ -186,7 +188,9 @@
             // 
             this.задачиТеорииГрафовToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
-            this.алгоритмДейкстрыToolStripMenuItem});
+            this.алгоритмДейкстрыToolStripMenuItem,
+            this.astarToolStripMenuItem,
+            this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem});
             this.задачиТеорииГрафовToolStripMenuItem.Name = "задачиТеорииГрафовToolStripMenuItem";
             this.задачиТеорииГрафовToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.задачиТеорииГрафовToolStripMenuItem.Text = "Задачи теории графов";
@@ -194,14 +198,14 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(186, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(323, 22);
             this.toolStripMenuItem2.Text = "Поиск в ширину";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // алгоритмДейкстрыToolStripMenuItem
             // 
             this.алгоритмДейкстрыToolStripMenuItem.Name = "алгоритмДейкстрыToolStripMenuItem";
-            this.алгоритмДейкстрыToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.алгоритмДейкстрыToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
             this.алгоритмДейкстрыToolStripMenuItem.Text = "Алгоритм Дейкстры";
             this.алгоритмДейкстрыToolStripMenuItem.Click += new System.EventHandler(this.алгоритмДейкстрыToolStripMenuItem_Click);
             // 
@@ -432,6 +436,20 @@
             this.StopSearch.UseVisualStyleBackColor = false;
             this.StopSearch.Click += new System.EventHandler(this.StopSearch_Click);
             // 
+            // astarToolStripMenuItem
+            // 
+            this.astarToolStripMenuItem.Name = "astarToolStripMenuItem";
+            this.astarToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.astarToolStripMenuItem.Text = "A-star";
+            this.astarToolStripMenuItem.Click += new System.EventHandler(this.astarToolStripMenuItem_Click);
+            // 
+            // поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem
+            // 
+            this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Name = "поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem";
+            this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Text = "Поиск по первому наилучшему совпадению";
+            this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Click += new System.EventHandler(this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -504,6 +522,8 @@
         private System.Windows.Forms.ToolStripMenuItem списокРёберИВершинToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem спискмРёберИВершинToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem алгоритмДейкстрыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem astarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem;
     }
 }
 

@@ -272,9 +272,131 @@ namespace SystAnalys_lr1
             return str;
         }
 
+        private int Heuristic(int a)
+        {
+            return Math.Abs(a - selected2);
+        }
+        private string BestFS()
+        {
+            var q = new Dictionary<int, int>();
+            var parent = new int[1000];
+            var used = new bool[1000];
+            bool flag = false;
+
+            q[Heuristic(selected1)] = selected1; 
+
+            while (q.Count != 0)
+            {
+                int item = 0;
+                int key = 0;
+                
+                foreach(var a in q.OrderBy(a => a.Key))
+                {
+                    item = a.Value;
+                    key = a.Key;
+                    break;
+                }
+                q.Remove(key);
+                used[item] = true;
+      
+
+                for (int i = 0; i < AMatrix.GetUpperBound(1) + 1; ++i)
+                {
+                    if (AMatrix[item, i] == 1 && !used[i])
+                    {
+                        if(i == selected2)
+                        {
+                            parent[i] = item;
+                            flag = true;
+                            break;
+                        }
+                        q[Heuristic(i)] = i;
+                        parent[i] = item;
+                    }
+                }
+        
+
+                if (flag) break;
+            }
+
+            StringBuilder str = new StringBuilder();
+            var num = selected2;
+            str.Append(num);
+            while (num != selected1)
+            {
+                num = parent[num];
+                str.Append(num);
+            }
+
+
+            return str.ToString();
+
+        }
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
-            if(алгоритмДейкстрыToolStripMenuItem.Enabled == false)
+            if (поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Enabled == false)
+            {
+                for (int i = 0; i < V.Count; i++)
+                {
+                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                    {
+                        if (selected1 == -1)
+                        {
+                            G.drawSelectedVertex(V[i].x, V[i].y);
+                            selected1 = i;
+                            sheet.Image = G.GetBitmap();
+                            break;
+                        }
+                        if (selected2 == -1)
+                        {
+                            
+                            G.drawSelectedVertex(V[i].x, V[i].y);
+                            selected2 = i;
+
+                            string result = BestFS();
+
+                            for (int indexVertex = result.Length - 2; indexVertex >= 0; indexVertex--)
+                            {
+                                G.DrawRedEdge(V[result[indexVertex] - '0'], V[result[indexVertex + 1] - '0']);
+                            }
+
+                            selected1 = -1;
+                            selected2 = -1;
+                            поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Enabled = true;
+                            sheet.Image = G.GetBitmap();
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (astarToolStripMenuItem.Enabled == false)
+            {
+                for (int i = 0; i < V.Count; i++)
+                {
+                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                    {
+                        if (selected1 == -1)
+                        {
+                            G.drawSelectedVertex(V[i].x, V[i].y);
+                            selected1 = i;
+                            sheet.Image = G.GetBitmap();
+                            break;
+                        }
+                        if (selected2 == -1)
+                        {
+                            G.drawSelectedVertex(V[i].x, V[i].y);
+                            selected2 = i;
+
+                            selected1 = -1;
+                            selected2 = -1;
+                            astarToolStripMenuItem.Enabled = true;
+                            sheet.Image = G.GetBitmap();
+                            break;
+                        }
+                    }
+                }
+            }
+            else if(алгоритмДейкстрыToolStripMenuItem.Enabled == false)
             {
                 for (int i = 0; i < V.Count; i++)
                 {
@@ -1198,6 +1320,39 @@ namespace SystAnalys_lr1
             panel1.Visible = false;
 
             алгоритмДейкстрыToolStripMenuItem.Enabled = false;
+        }
+
+        private void astarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            astarToolStripMenuItem.Enabled = false;
+        }
+
+        private void поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Enabled = false;
+
         }
     }
 }
