@@ -44,6 +44,7 @@
             this.выходИзПрограммыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.задачиТеорииГрафовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.алгоритмДейкстрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оАвтореToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +65,6 @@
             this.drag = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.StopSearch = new System.Windows.Forms.Button();
-            this.алгоритмДейкстрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.panel1.SuspendLayout();
@@ -198,6 +198,13 @@
             this.toolStripMenuItem2.Text = "Поиск в ширину";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
+            // алгоритмДейкстрыToolStripMenuItem
+            // 
+            this.алгоритмДейкстрыToolStripMenuItem.Name = "алгоритмДейкстрыToolStripMenuItem";
+            this.алгоритмДейкстрыToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.алгоритмДейкстрыToolStripMenuItem.Text = "Алгоритм Дейкстры";
+            this.алгоритмДейкстрыToolStripMenuItem.Click += new System.EventHandler(this.алгоритмДейкстрыToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -241,47 +248,51 @@
             // 
             // redo
             // 
+            this.redo.BackColor = System.Drawing.SystemColors.Window;
             this.redo.BackgroundImage = global::SystAnalys_lr1.Properties.Resources.redoarrow_rehace_15471;
             this.redo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.redo.Location = new System.Drawing.Point(533, 27);
             this.redo.Name = "redo";
             this.redo.Size = new System.Drawing.Size(36, 34);
             this.redo.TabIndex = 16;
-            this.redo.UseVisualStyleBackColor = true;
+            this.redo.UseVisualStyleBackColor = false;
             this.redo.Click += new System.EventHandler(this.redo_Click);
             // 
             // undo
             // 
+            this.undo.BackColor = System.Drawing.SystemColors.Window;
             this.undo.BackgroundImage = global::SystAnalys_lr1.Properties.Resources.undoarrow_undo_1534;
             this.undo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.undo.Location = new System.Drawing.Point(491, 26);
             this.undo.Name = "undo";
             this.undo.Size = new System.Drawing.Size(36, 35);
             this.undo.TabIndex = 15;
-            this.undo.UseVisualStyleBackColor = true;
+            this.undo.UseVisualStyleBackColor = false;
             this.undo.Click += new System.EventHandler(this.undo_Click);
             // 
             // cycleButton
             // 
+            this.cycleButton.BackColor = System.Drawing.SystemColors.Window;
             this.cycleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cycleButton.Image = global::SystAnalys_lr1.Properties.Resources.cycle;
             this.cycleButton.Location = new System.Drawing.Point(1086, 453);
             this.cycleButton.Name = "cycleButton";
             this.cycleButton.Size = new System.Drawing.Size(70, 45);
             this.cycleButton.TabIndex = 11;
-            this.cycleButton.UseVisualStyleBackColor = true;
+            this.cycleButton.UseVisualStyleBackColor = false;
             this.cycleButton.Visible = false;
             this.cycleButton.Click += new System.EventHandler(this.cycleButton_Click);
             // 
             // chainButton
             // 
+            this.chainButton.BackColor = System.Drawing.SystemColors.Window;
             this.chainButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.chainButton.Image = global::SystAnalys_lr1.Properties.Resources.chain;
             this.chainButton.Location = new System.Drawing.Point(1086, 402);
             this.chainButton.Name = "chainButton";
             this.chainButton.Size = new System.Drawing.Size(70, 45);
             this.chainButton.TabIndex = 10;
-            this.chainButton.UseVisualStyleBackColor = true;
+            this.chainButton.UseVisualStyleBackColor = false;
             this.chainButton.Click += new System.EventHandler(this.chainButton_Click);
             // 
             // buttonInc
@@ -298,7 +309,7 @@
             // 
             // buttonAdj
             // 
-            this.buttonAdj.BackColor = System.Drawing.SystemColors.Info;
+            this.buttonAdj.BackColor = System.Drawing.SystemColors.Window;
             this.buttonAdj.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonAdj.Image = global::SystAnalys_lr1.Properties.Resources.smezh;
             this.buttonAdj.Location = new System.Drawing.Point(1012, 56);
@@ -320,62 +331,68 @@
             // 
             // drawVertexButton
             // 
+            this.drawVertexButton.BackColor = System.Drawing.SystemColors.Window;
             this.drawVertexButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.drawVertexButton.Image = global::SystAnalys_lr1.Properties.Resources.vertex;
             this.drawVertexButton.Location = new System.Drawing.Point(252, 16);
             this.drawVertexButton.Name = "drawVertexButton";
             this.drawVertexButton.Size = new System.Drawing.Size(55, 55);
             this.drawVertexButton.TabIndex = 1;
-            this.drawVertexButton.UseVisualStyleBackColor = true;
+            this.drawVertexButton.UseVisualStyleBackColor = false;
             this.drawVertexButton.Click += new System.EventHandler(this.drawVertexButton_Click);
             // 
             // drawEdgeButton
             // 
+            this.drawEdgeButton.BackColor = System.Drawing.SystemColors.Window;
             this.drawEdgeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.drawEdgeButton.Image = global::SystAnalys_lr1.Properties.Resources.edge;
             this.drawEdgeButton.Location = new System.Drawing.Point(11, 16);
             this.drawEdgeButton.Name = "drawEdgeButton";
             this.drawEdgeButton.Size = new System.Drawing.Size(55, 55);
             this.drawEdgeButton.TabIndex = 2;
-            this.drawEdgeButton.UseVisualStyleBackColor = true;
+            this.drawEdgeButton.UseVisualStyleBackColor = false;
             this.drawEdgeButton.Click += new System.EventHandler(this.drawEdgeButton_Click);
             // 
             // deleteButton
             // 
+            this.deleteButton.BackColor = System.Drawing.SystemColors.Window;
             this.deleteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.deleteButton.Image = global::SystAnalys_lr1.Properties.Resources.delete;
             this.deleteButton.Location = new System.Drawing.Point(84, 16);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(55, 55);
             this.deleteButton.TabIndex = 3;
-            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // deleteALLButton
             // 
+            this.deleteALLButton.BackColor = System.Drawing.SystemColors.Window;
             this.deleteALLButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.deleteALLButton.Image = global::SystAnalys_lr1.Properties.Resources.deleteAll;
             this.deleteALLButton.Location = new System.Drawing.Point(169, 16);
             this.deleteALLButton.Name = "deleteALLButton";
             this.deleteALLButton.Size = new System.Drawing.Size(55, 55);
             this.deleteALLButton.TabIndex = 5;
-            this.deleteALLButton.UseVisualStyleBackColor = true;
+            this.deleteALLButton.UseVisualStyleBackColor = false;
             this.deleteALLButton.Click += new System.EventHandler(this.deleteALLButton_Click);
             // 
             // selectButton
             // 
             this.selectButton.AutoSize = true;
+            this.selectButton.BackColor = System.Drawing.SystemColors.Window;
             this.selectButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.selectButton.Image = global::SystAnalys_lr1.Properties.Resources.cursor;
             this.selectButton.Location = new System.Drawing.Point(419, 16);
             this.selectButton.Name = "selectButton";
             this.selectButton.Size = new System.Drawing.Size(55, 55);
             this.selectButton.TabIndex = 9;
-            this.selectButton.UseVisualStyleBackColor = true;
+            this.selectButton.UseVisualStyleBackColor = false;
             this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
             // 
             // drag
             // 
+            this.drag.BackColor = System.Drawing.SystemColors.Window;
             this.drag.BackgroundImage = global::SystAnalys_lr1.Properties.Resources.thefreeforty_hand_icon_icons_com_66340;
             this.drag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.drag.Location = new System.Drawing.Point(336, 16);
@@ -383,7 +400,7 @@
             this.drag.Name = "drag";
             this.drag.Size = new System.Drawing.Size(55, 55);
             this.drag.TabIndex = 17;
-            this.drag.UseVisualStyleBackColor = true;
+            this.drag.UseVisualStyleBackColor = false;
             this.drag.Click += new System.EventHandler(this.drag_Click);
             // 
             // panel1
@@ -405,21 +422,15 @@
             // 
             // StopSearch
             // 
+            this.StopSearch.BackColor = System.Drawing.SystemColors.Window;
             this.StopSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.StopSearch.Image = global::SystAnalys_lr1.Properties.Resources.delete;
             this.StopSearch.Location = new System.Drawing.Point(951, 601);
             this.StopSearch.Name = "StopSearch";
             this.StopSearch.Size = new System.Drawing.Size(55, 55);
             this.StopSearch.TabIndex = 19;
-            this.StopSearch.UseVisualStyleBackColor = true;
+            this.StopSearch.UseVisualStyleBackColor = false;
             this.StopSearch.Click += new System.EventHandler(this.StopSearch_Click);
-            // 
-            // алгоритмДейкстрыToolStripMenuItem
-            // 
-            this.алгоритмДейкстрыToolStripMenuItem.Name = "алгоритмДейкстрыToolStripMenuItem";
-            this.алгоритмДейкстрыToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.алгоритмДейкстрыToolStripMenuItem.Text = "Алгоритм Дейкстры";
-            this.алгоритмДейкстрыToolStripMenuItem.Click += new System.EventHandler(this.алгоритмДейкстрыToolStripMenuItem_Click);
             // 
             // Form1
             // 
