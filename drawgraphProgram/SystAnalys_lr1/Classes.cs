@@ -190,8 +190,7 @@ namespace SystAnalys_lr1
         public void drawEdge(Vertex V1, Vertex V2, Line E, int numberE)
         {
             ///TODO:падает при закрытии!
-            
-            GreenPen.CustomEndCap = new AdjustableArrowCap(10, 10);
+                GreenPen.CustomEndCap = new AdjustableArrowCap(10, 10);
 
             if (E.v1 == E.v2)
             {
@@ -202,12 +201,21 @@ namespace SystAnalys_lr1
             }
             else
             {
-                string[] words = E.direction.Split(new char[] { ' ' });
-                int FVertexNumber = Convert.ToInt32(words[0]);
-                if(FVertexNumber==V1.Number)
-                    gr.DrawLine(GreenPen, V1.x, V1.y, V2.x, V2.y);
-                else if(FVertexNumber==V2.Number)
-                    gr.DrawLine(GreenPen, V2.x, V2.y, V1.x, V1.y);
+                if (E.direction == null)
+                {
+                    gr.DrawLine(new Pen(Color.Green,2f), V1.x, V1.y, V2.x, V2.y);
+                }
+                else
+                {
+                    string[] words = E.direction.Split(new char[] { ' ' });
+                    int FVertexNumber = Convert.ToInt32(words[0]);
+                    if (FVertexNumber == V1.Number)
+                        gr.DrawLine(GreenPen, V1.x, V1.y, V2.x, V2.y);
+                    else if (FVertexNumber == V2.Number)
+                        gr.DrawLine(GreenPen, V2.x, V2.y, V1.x, V1.y);
+
+                }
+
                 point = new PointF((V1.x + V2.x) / 2, (V1.y + V2.y) / 2);
                 gr.DrawString(((char)('a' + numberE)).ToString(), fo, br, point);
                 drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
@@ -231,8 +239,8 @@ namespace SystAnalys_lr1
             GreenPen.CustomEndCap = new AdjustableArrowCap(10, 10);
             for (int i = 0; i < E.Count; i++)
             {
-                string[] words = E[i].direction.Split(new char[] { ' ' });
-                int FVertexNumber = Convert.ToInt32(words[0]);
+
+
                 if (E[i].v1 == E[i].v2)
                 {
                     gr.DrawArc(GreenPen, (V[E[i].v1].x - 2 * R), (V[E[i].v1].y - 2 * R), 2 * R, 2 * R, 90, 270);
@@ -242,13 +250,24 @@ namespace SystAnalys_lr1
                 else
                 {
 
-                    if (FVertexNumber == V[E[i].v1].Number)
-                        gr.DrawLine(GreenPen, V[E[i].v1].x, V[E[i].v1].y, V[E[i].v2].x, V[E[i].v2].y);
-                    else if (FVertexNumber == V[E[i].v2].Number)
-                        gr.DrawLine(GreenPen, V[E[i].v2].x, V[E[i].v2].y, V[E[i].v1].x, V[E[i].v1].y);
+                    if (E[i].direction == null)
+                    {
+                        gr.DrawLine(new Pen(Color.Green, 2f), V[E[i].v1].x, V[E[i].v1].y, V[E[i].v2].x, V[E[i].v2].y);
+                        point = new PointF((V[E[i].v1].x + V[E[i].v2].x) / 2, (V[E[i].v1].y + V[E[i].v2].y) / 2);
+                        gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
+                    }
+                    else
+                    {
+                        string[] words = E[i].direction.Split(new char[] { ' ' });
+                        int FVertexNumber = Convert.ToInt32(words[0]);
+                        if (FVertexNumber == V[E[i].v1].Number)
+                            gr.DrawLine(GreenPen, V[E[i].v1].x, V[E[i].v1].y, V[E[i].v2].x, V[E[i].v2].y);
+                        else if (FVertexNumber == V[E[i].v2].Number)
+                            gr.DrawLine(GreenPen, V[E[i].v2].x, V[E[i].v2].y, V[E[i].v1].x, V[E[i].v1].y);
 
                     point = new PointF((V[E[i].v1].x + V[E[i].v2].x) / 2, (V[E[i].v1].y + V[E[i].v2].y) / 2);
                     gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
+                    }
                 }
             }
             for (int i = 0; i < V.Count; i++)
