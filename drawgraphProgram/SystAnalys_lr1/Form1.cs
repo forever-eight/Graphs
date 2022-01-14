@@ -430,10 +430,6 @@ namespace SystAnalys_lr1
         }
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
-            if (дополнениеГрафаToolStripMenuItem.Enabled == false)
-            {
-                
-            }
 
             if (поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Enabled == false)
             {
@@ -1452,6 +1448,37 @@ namespace SystAnalys_lr1
             panel1.Visible = false;
 
             дополнениеГрафаToolStripMenuItem.Enabled = false;
+            int check = 0;
+            for (int i = 0; i < V.Count; i++)
+                {
+                    for (int j = 0; j < V.Count; j++)
+                    {
+                        if (i != j) { 
+                        if (AMatrix[i, j] == 0)
+                        {
+                           AMatrix[i, j] = 1;
+                           check = 1;
+                        }
+                        }
+                   /* else 
+                    {
+                        if (AMAtrix[i, j] != 1) {
+                            AMatrix[i, j] = 1;
+                            check = 1;
+                        }
+                    }*/
+                    }
+                }
+            switch (check) {
+                case 0:
+                    // вывести, что граф полный
+                     Console.WriteLine("OK");
+                    break;
+                case 1:
+                    // перерисовать граф под матрицу
+                    Console.WriteLine("NOT OK");
+                    break;
+            }
         }
     }
 }
