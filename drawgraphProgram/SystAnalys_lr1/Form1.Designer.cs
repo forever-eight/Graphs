@@ -47,6 +47,8 @@
             this.алгоритмДейкстрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.astarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.дополнениеГрафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.радиусдиаметрИСтепениToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оАвтореToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +69,7 @@
             this.drag = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.StopSearch = new System.Windows.Forms.Button();
-            this.дополнениеГрафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.алгоритмКрускалаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.panel1.SuspendLayout();
@@ -192,7 +194,9 @@
             this.алгоритмДейкстрыToolStripMenuItem,
             this.astarToolStripMenuItem,
             this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem,
-            this.дополнениеГрафаToolStripMenuItem});
+            this.дополнениеГрафаToolStripMenuItem,
+            this.радиусдиаметрИСтепениToolStripMenuItem,
+            this.алгоритмКрускалаToolStripMenuItem});
             this.задачиТеорииГрафовToolStripMenuItem.Name = "задачиТеорииГрафовToolStripMenuItem";
             this.задачиТеорииГрафовToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.задачиТеорииГрафовToolStripMenuItem.Text = "Задачи теории графов";
@@ -224,6 +228,20 @@
             this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
             this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Text = "Поиск по первому наилучшему совпадению";
             this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Click += new System.EventHandler(this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem_Click);
+            // 
+            // дополнениеГрафаToolStripMenuItem
+            // 
+            this.дополнениеГрафаToolStripMenuItem.Name = "дополнениеГрафаToolStripMenuItem";
+            this.дополнениеГрафаToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.дополнениеГрафаToolStripMenuItem.Text = "Дополнение графа";
+            this.дополнениеГрафаToolStripMenuItem.Click += new System.EventHandler(this.дополнениеГрафаToolStripMenuItem_Click);
+            // 
+            // радиусдиаметрИСтепениToolStripMenuItem
+            // 
+            this.радиусдиаметрИСтепениToolStripMenuItem.Name = "радиусдиаметрИСтепениToolStripMenuItem";
+            this.радиусдиаметрИСтепениToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.радиусдиаметрИСтепениToolStripMenuItem.Text = "Радиус,диаметр и степени";
+            this.радиусдиаметрИСтепениToolStripMenuItem.Click += new System.EventHandler(this.радиусдиаметрИСтепениToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -452,12 +470,12 @@
             this.StopSearch.UseVisualStyleBackColor = false;
             this.StopSearch.Click += new System.EventHandler(this.StopSearch_Click);
             // 
-            // дополнениеГрафаToolStripMenuItem
+            // алгоритмКрускалаToolStripMenuItem
             // 
-            this.дополнениеГрафаToolStripMenuItem.Name = "дополнениеГрафаToolStripMenuItem";
-            this.дополнениеГрафаToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
-            this.дополнениеГрафаToolStripMenuItem.Text = "Дополнение графа";
-            this.дополнениеГрафаToolStripMenuItem.Click += new System.EventHandler(this.дополнениеГрафаToolStripMenuItem_Click);
+            this.алгоритмКрускалаToolStripMenuItem.Name = "алгоритмКрускалаToolStripMenuItem";
+            this.алгоритмКрускалаToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.алгоритмКрускалаToolStripMenuItem.Text = "Алгоритм Крускала";
+            this.алгоритмКрускалаToolStripMenuItem.Click += new System.EventHandler(this.алгоритмКрускалаToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -534,6 +552,8 @@
         private System.Windows.Forms.ToolStripMenuItem astarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem дополнениеГрафаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem радиусдиаметрИСтепениToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem алгоритмКрускалаToolStripMenuItem;
     }
 }
 

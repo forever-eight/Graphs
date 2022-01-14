@@ -196,7 +196,7 @@ namespace SystAnalys_lr1
             {
                 gr.DrawArc(GreenPen, (V1.x - 2 * R), (V1.y - 2 * R), 2 * R, 2 * R, 90, 270);
                 point = new PointF(V1.x - (int)(2.75 * R), V1.y - (int)(2.75 * R));
-                gr.DrawString(((char)('a' + numberE)).ToString(), fo, br, point);
+                gr.DrawString(((char)('a' + numberE)).ToString()+":"+E.weight.ToString(), fo, br, point);
                 drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
             }
             else
@@ -217,7 +217,7 @@ namespace SystAnalys_lr1
                 }
 
                 point = new PointF((V1.x + V2.x) / 2, (V1.y + V2.y) / 2);
-                gr.DrawString(((char)('a' + numberE)).ToString(), fo, br, point);
+                gr.DrawString(((char)('a' + numberE)).ToString() + ":" + E.weight.ToString(), fo, br, point);
                 drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
                 drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
                 
@@ -245,7 +245,7 @@ namespace SystAnalys_lr1
                 {
                     gr.DrawArc(GreenPen, (V[E[i].v1].x - 2 * R), (V[E[i].v1].y - 2 * R), 2 * R, 2 * R, 90, 270);
                     point = new PointF(V[E[i].v1].x - (int)(2.75 * R), V[E[i].v1].y - (int)(2.75 * R));
-                    gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
+                    gr.DrawString(((char)('a' + i)).ToString() + ":" + E[i].weight.ToString(), fo, br, point);
                 }
                 else
                 {
@@ -254,7 +254,7 @@ namespace SystAnalys_lr1
                     {
                         gr.DrawLine(new Pen(Color.Green, 2f), V[E[i].v1].x, V[E[i].v1].y, V[E[i].v2].x, V[E[i].v2].y);
                         point = new PointF((V[E[i].v1].x + V[E[i].v2].x) / 2, (V[E[i].v1].y + V[E[i].v2].y) / 2);
-                        gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
+                        gr.DrawString(((char)('a' + i)).ToString() + ":" + E[i].weight.ToString(), fo, br, point);
                     }
                     else
                     {
@@ -266,7 +266,7 @@ namespace SystAnalys_lr1
                             gr.DrawLine(GreenPen, V[E[i].v2].x, V[E[i].v2].y, V[E[i].v1].x, V[E[i].v1].y);
 
                     point = new PointF((V[E[i].v1].x + V[E[i].v2].x) / 2, (V[E[i].v1].y + V[E[i].v2].y) / 2);
-                    gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
+                    gr.DrawString(((char)('a' + i)).ToString() + ":" + E[i].weight.ToString(), fo, br, point);
                     }
                 }
             }
