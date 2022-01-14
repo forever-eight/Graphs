@@ -24,6 +24,7 @@ namespace SystAnalys_lr1
         int selected1 = -1; //выбранные вершины, для соединения линиями
         int selected2 = -1;
         int dragSelectedIndex = -1; // отлов выбранной вершины
+        string Graphdiameter="";
 
         public Form1()
         {
@@ -797,6 +798,8 @@ namespace SystAnalys_lr1
             else
             {
                 listBoxMatrix.Items.Add(s);
+                if (s.Length > Graphdiameter.Length)
+                    Graphdiameter = s;
                 return;
             }
             for (int w = 0; w < E.Count; w++)
@@ -1452,6 +1455,14 @@ namespace SystAnalys_lr1
             panel1.Visible = false;
 
             дополнениеГрафаToolStripMenuItem.Enabled = false;
+        }
+
+        private void радиусдиаметрИСтепениToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chainButton.PerformClick();
+            
+
+            MessageBox.Show("Диаметр:" + Graphdiameter + "\n" + "Радиус:");
         }
     }
 }
