@@ -1606,5 +1606,116 @@ namespace SystAnalys_lr1
             G.drawALLGraph(V, pool[0]);
             sheet.Image = G.GetBitmap();
         }
+
+        private bool CheckVertex(int a, Color color, ref Pen[] pool)
+        {
+            for (int i = 0; i < AMatrix.GetUpperBound(1) + 1; ++i)
+            {
+                if (AMatrix[a, i] == 1)
+                {
+                    if (pool[i] != null && pool[i].Color == color)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private void раскраскаГрафаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            int[] stepen = new int[1000];
+            int chrome = 0;
+
+            if (AMatrix == null)
+            {
+                AMatrix = new int[V.Count, V.Count];
+            }
+
+            for (int i = 0; i < V.Count; ++i)
+            {
+                int degree = 0;
+                for (int j = 0; j < AMatrix.GetUpperBound(1) + 1; ++j)
+                {
+                    if (AMatrix[i, j] == 1)
+                    {
+                        ++degree;
+                    }
+                }
+
+                stepen[i] = degree;
+            }
+
+            Pen[] color = new Pen[1000];
+            Color col = Color.Red;
+            Random rand = new Random();
+
+            foreach (var item in V.OrderBy(number => -stepen[number.Number - 1]))
+            {
+                if (color[item.Number - 1] != null)
+                {
+                    continue;
+                }
+                else
+                {
+                    color[item.Number - 1] = new Pen(col);
+                }
+                ++chrome;
+
+                var list = new List<int>();
+                for (int i = 0; i < AMatrix.GetUpperBound(1) + 1; ++i)
+                {
+                    if (AMatrix[i, item.Number - 1] == 1)
+                    {
+                        list.Add(i);
+                    }
+                }
+
+                foreach (var a in V)
+                {
+                    if (!list.Contains(a.Number - 1) && a.Number - 1 != item.Number - 1)
+                    {
+                        if (color[a.Number - 1] == null)
+                        {
+                            if (CheckVertex(a.Number - 1, col, ref color))
+                            {
+                                color[a.Number - 1] = new Pen(col);
+                            }
+                        }
+                    }
+                }
+
+                col = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256));
+            }
+
+
+            MessageBox.Show($"Хроматическое число: {chrome}");
+            for (int i = 0; i < color.Length; ++i)
+            {
+                if (color[i] == null) break;
+                G.drawSelectedVertex(color[i], V[i].x, V[i].y);
+                dragSelectedIndex = i;
+                sheet.Image = G.GetBitmap();
+            }
+            for (int i = 0; i < V.Count; ++i)
+            {
+                G.drawVertex(V[i].x, V[i].y, V[i].Number.ToString(), color[i].Color);
+            }
+            //G.drawSelectedVertex(V[i].x, V[i].y);
+            //dragSelectedIndex = i;
+            //sheet.Image = G.GetBitmap();
+        }
     }
 }

@@ -182,9 +182,22 @@ namespace SystAnalys_lr1
             gr.DrawString(number, fo, br, point);
         }
 
+        public void drawVertex(int x, int y, string number, Color color)
+        {
+            gr.DrawEllipse(blackPen, (x - R), (y - R), 2 * R, 2 * R);
+            point = new PointF(x - 9, y - 9);
+            gr.DrawString(number, fo, br, point);
+        }
+
         public void drawSelectedVertex(int x, int y)
         {
             gr.DrawEllipse(redPen, (x - R), (y - R), 2 * R, 2 * R);
+        }
+
+        public void drawSelectedVertex(Pen color, int x, int y)
+        {
+            gr.DrawEllipse(color, (x - R), (y - R), 2 * R, 2 * R);
+            gr.FillEllipse(color.Brush, (x - R), (y - R), 2 * R, 2 * R);
         }
 
         public void drawEdge(Vertex V1, Vertex V2, Line E, int numberE)

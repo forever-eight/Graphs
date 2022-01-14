@@ -49,6 +49,7 @@
             this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.дополнениеГрафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.радиусдиаметрИСтепениToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.алгоритмКрускалаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оАвтореToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +70,7 @@
             this.drag = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.StopSearch = new System.Windows.Forms.Button();
-            this.алгоритмКрускалаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.раскраскаГрафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.panel1.SuspendLayout();
@@ -196,7 +197,8 @@
             this.поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem,
             this.дополнениеГрафаToolStripMenuItem,
             this.радиусдиаметрИСтепениToolStripMenuItem,
-            this.алгоритмКрускалаToolStripMenuItem});
+            this.алгоритмКрускалаToolStripMenuItem,
+            this.раскраскаГрафаToolStripMenuItem});
             this.задачиТеорииГрафовToolStripMenuItem.Name = "задачиТеорииГрафовToolStripMenuItem";
             this.задачиТеорииГрафовToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.задачиТеорииГрафовToolStripMenuItem.Text = "Задачи теории графов";
@@ -242,6 +244,13 @@
             this.радиусдиаметрИСтепениToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
             this.радиусдиаметрИСтепениToolStripMenuItem.Text = "Радиус,диаметр и степени";
             this.радиусдиаметрИСтепениToolStripMenuItem.Click += new System.EventHandler(this.радиусдиаметрИСтепениToolStripMenuItem_Click);
+            // 
+            // алгоритмКрускалаToolStripMenuItem
+            // 
+            this.алгоритмКрускалаToolStripMenuItem.Name = "алгоритмКрускалаToolStripMenuItem";
+            this.алгоритмКрускалаToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.алгоритмКрускалаToolStripMenuItem.Text = "Алгоритм Крускала";
+            this.алгоритмКрускалаToolStripMenuItem.Click += new System.EventHandler(this.алгоритмКрускалаToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -470,12 +479,12 @@
             this.StopSearch.UseVisualStyleBackColor = false;
             this.StopSearch.Click += new System.EventHandler(this.StopSearch_Click);
             // 
-            // алгоритмКрускалаToolStripMenuItem
+            // раскраскаГрафаToolStripMenuItem
             // 
-            this.алгоритмКрускалаToolStripMenuItem.Name = "алгоритмКрускалаToolStripMenuItem";
-            this.алгоритмКрускалаToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
-            this.алгоритмКрускалаToolStripMenuItem.Text = "Алгоритм Крускала";
-            this.алгоритмКрускалаToolStripMenuItem.Click += new System.EventHandler(this.алгоритмКрускалаToolStripMenuItem_Click);
+            this.раскраскаГрафаToolStripMenuItem.Name = "раскраскаГрафаToolStripMenuItem";
+            this.раскраскаГрафаToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.раскраскаГрафаToolStripMenuItem.Text = "Раскраска графа";
+            this.раскраскаГрафаToolStripMenuItem.Click += new System.EventHandler(this.раскраскаГрафаToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -554,6 +563,7 @@
         private System.Windows.Forms.ToolStripMenuItem дополнениеГрафаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem радиусдиаметрИСтепениToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem алгоритмКрускалаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem раскраскаГрафаToolStripMenuItem;
     }
 }
 
