@@ -1265,6 +1265,7 @@ namespace SystAnalys_lr1
         private void StopSearch_Click(object sender, EventArgs e)
         {
             StopSearch.Visible = false;
+            createAdjAndOut();
             panel1.Visible = true;
             G.clearSheet();
             G.drawALLGraph(V, L);
@@ -1438,6 +1439,19 @@ namespace SystAnalys_lr1
 
         }
 
+        private bool ExistInL(int i, int j)
+        {
+            foreach (var item in L)
+            {
+                if ((item.v1 == i && item.v2 == j) || (item.v1 == j || item.v2 == i))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void дополнениеГрафаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             deleteButton.Enabled = true;
@@ -1452,37 +1466,67 @@ namespace SystAnalys_lr1
             panel1.Visible = false;
 
             дополнениеГрафаToolStripMenuItem.Enabled = false;
+
+            if (AMatrix == null)
+            {
+                AMatrix = new int[V.Count, V.Count];
+            }
+
             int check = 0;
             for (int i = 0; i < V.Count; i++)
+            {
+                for (int j = 0; j < V.Count; j++)
                 {
-                    for (int j = 0; j < V.Count; j++)
+                    if (i != j)
                     {
-                        if (i != j) { 
                         if (AMatrix[i, j] == 0)
                         {
-                           AMatrix[i, j] = 1;
-                           check = 1;
-                        }
-                        }
-                   /* else 
-                    {
-                        if (AMAtrix[i, j] != 1) {
                             AMatrix[i, j] = 1;
                             check = 1;
                         }
-                    }*/
+                    }
+                    else
+                    {
+                        if (AMatrix[i, j] == 1)
+                        {
+                            AMatrix[i, j] = 0;
+                            check = 1;
+                        }
                     }
                 }
-            switch (check) {
+            }
+
+            var list = new List<Line>();
+            switch (check)
+            {
                 case 0:
                     // вывести, что граф полный
-                     Console.WriteLine("OK");
+                    MessageBox.Show("Полный");
                     break;
                 case 1:
                     // перерисовать граф под матрицу
-                    Console.WriteLine("NOT OK");
+                    MessageBox.Show("Не полный");
+
+                    for (int i = 0; i < AMatrix.GetUpperBound(0) + 1; ++i)
+                    {
+                        for (int j = 0; j < AMatrix.GetUpperBound(1) + 1; ++j)
+                        {
+                            if (i != j && ExistInL(i, j))
+                            {
+                                list.Add(new Line(i, j, ((char)('a' + L.Count)).ToString()));
+                            }
+                        }
+                    }
+
+                    foreach (var item in list)
+                    {
+                        G.DrawRedEdge(V[item.v1], V[item.v2]);
+                    }
+                    sheet.Image = G.GetBitmap();
                     break;
             }
+
+            дополнениеГрафаToolStripMenuItem.Enabled = true;
         }
 
         private void радиусдиаметрИСтепениToolStripMenuItem_Click(object sender, EventArgs e)
