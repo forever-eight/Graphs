@@ -21,6 +21,7 @@ namespace SystAnalys_lr1
         List<string> Way;
         int[,] AMatrix; //матрица смежности
         int[,] IMatrix; //матрица инцидентности
+        int[,] AMatrixCopy;
         int selected1 = -1; //выбранные вершины, для соединения линиями
         int selected2 = -1;
         int dragSelectedIndex = -1; // отлов выбранной вершины
@@ -891,6 +892,9 @@ namespace SystAnalys_lr1
         private void Form1_Load(object sender, EventArgs e)
         {
             listBoxMatrix.ItemHeight = 25;
+            next.Visible = false;
+            finish.Visible = false;
+
         }
 
         private void картинкуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1265,6 +1269,8 @@ namespace SystAnalys_lr1
         private void StopSearch_Click(object sender, EventArgs e)
         {
             StopSearch.Visible = false;
+            finish.Visible = false;
+            изоморфизмГрафовToolStripMenuItem.Enabled = true;
             createAdjAndOut();
             panel1.Visible = true;
             G.clearSheet();
@@ -1716,6 +1722,71 @@ namespace SystAnalys_lr1
             //G.drawSelectedVertex(V[i].x, V[i].y);
             //dragSelectedIndex = i;
             //sheet.Image = G.GetBitmap();
+        }
+    
+
+
+
+
+        private void изоморфизмГрафовToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            изоморфизмГрафовToolStripMenuItem.Enabled = false;
+            StopSearch.Visible = true;
+
+            next.Visible = true;
+        }
+
+        private void next_Click(object sender, EventArgs e)
+        {
+            AMatrixCopy = new int[V.Count, V.Count];
+            if (AMatrix == null)
+            {
+                createAdjAndOut();
+            }
+            for (int i = 0; i < V.Count; ++i)
+            {
+                for (int j = 0; j < V.Count; ++j)
+                {
+                    AMatrixCopy[i, j] = AMatrix[i, j];
+                }
+            }
+            V.Clear();
+            L.Clear();
+            next.Visible = false;
+            finish.Visible = true;
+
+            G.clearSheet();
+            sheet.Image = G.GetBitmap();
+        }
+
+        private void finish_Click_1(object sender, EventArgs e)
+        {
+            bool result = true;
+
+            createAdjAndOut();
+            for (int i = 0; i < V.Count; i++)
+            {
+                for (int j = 0; j < V.Count; j++)
+                {
+                    if (AMatrixCopy[i, j] != AMatrix[i, j])
+                    {
+                        result = false;
+                    }
+
+                }
+            }
+
+            if (result)
+            {
+                MessageBox.Show("Графы изоморфны");
+            }
+            else
+            {
+                MessageBox.Show("Графы не изоморофны");
+            }
+            finish.Visible = false;
+            StopSearch.Visible = false;
+            изоморфизмГрафовToolStripMenuItem.Enabled = true;
         }
     }
 }
