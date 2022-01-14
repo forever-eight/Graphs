@@ -430,6 +430,11 @@ namespace SystAnalys_lr1
         }
         private void sheet_MouseClick(object sender, MouseEventArgs e)
         {
+            if (дополнениеГрафаToolStripMenuItem.Enabled == false)
+            {
+                
+            }
+
             if (поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Enabled == false)
             {
                 for (int i = 0; i < V.Count; i++)
@@ -1431,6 +1436,22 @@ namespace SystAnalys_lr1
 
             поискПоПервомуНаилучшемуСовпадениюToolStripMenuItem.Enabled = false;
 
+        }
+
+        private void дополнениеГрафаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            дополнениеГрафаToolStripMenuItem.Enabled = false;
         }
     }
 }
