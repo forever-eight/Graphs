@@ -141,7 +141,7 @@ namespace SystAnalys_lr1
 
         private int HeuFunc(int a, int shortest)
         {
-            return Math.Abs(a - selected2) + shortest;
+            return (int)Math.Sqrt(Math.Pow(V[a].x - V[selected2].y, 2) + (int)Math.Pow(V[a].y - V[selected2].y, 2)) + shortest;
         }
 
         private string AStar()
@@ -150,6 +150,7 @@ namespace SystAnalys_lr1
             var parent = new int[1000];
             var shortest = new int[1000];
             bool flag = false;
+            bool[] used = new bool[1000];
 
             for (int i = 0; i < shortest.Length; ++i)
             {
@@ -187,7 +188,7 @@ namespace SystAnalys_lr1
                             }
                         }
 
-                        if (i == selected2)
+                        if (i == selected2 && used[i])
                         {
                             shortest[i] = shortest[item] + len;
                             parent[i] = item;
@@ -205,7 +206,7 @@ namespace SystAnalys_lr1
                     }
                 }
 
-
+                used[item] = true;
                 if (flag) break;
             }
 
