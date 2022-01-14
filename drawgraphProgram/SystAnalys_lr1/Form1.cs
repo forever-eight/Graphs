@@ -1464,5 +1464,75 @@ namespace SystAnalys_lr1
 
             MessageBox.Show("Диаметр:" + Graphdiameter + "\n" + "Радиус:");
         }
+
+        private bool SearchInPool(ref List<List<Line>> pool, int item, out int iter)
+        {
+            int kol = -1;
+
+            foreach(var lists in pool)
+            {
+                ++kol;
+                foreach (var i in lists)
+                {
+                    if (i.v1 == item || i.v2 == item)
+                    {
+                        iter = kol;
+                        return true;
+                    }
+                }
+            }
+
+            iter = -1;
+            return false;
+        }
+
+        private void алгоритмКрускалаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            алгоритмКрускалаToolStripMenuItem.Enabled = false;
+
+            List<List<Line>> pool = new List<List<Line>>();
+            int iter_1 = 0, iter_2 = 0;
+
+            foreach (var item in L.OrderBy(i => i.weight))
+            {
+                //if cycle
+                if (SearchInPool(ref pool, item.v1, out iter_1) && SearchInPool(ref pool, item.v2, out iter_2))
+                {
+                    if (iter_1 != iter_2)
+                    {
+                        pool[iter_1] = pool[iter_1].Concat(pool[iter_2]) as List<Line>;
+                        pool.RemoveAt(iter_2);
+                    }
+                }
+                else if (SearchInPool(ref pool, item.v1, out iter_1) && !SearchInPool(ref pool, item.v2, out iter_2))
+                {
+                    pool[iter_1].Add(item);
+                }
+                else if (!SearchInPool(ref pool, item.v1, out iter_1) && SearchInPool(ref pool, item.v2, out iter_2))
+                {
+                    pool[iter_2].Add(item);
+                }
+                else if (!SearchInPool(ref pool, item.v1, out iter_1) && !SearchInPool(ref pool, item.v2, out iter_2))
+                {
+                    pool.Add(new List<Line> { item });
+                }
+            }
+
+            алгоритмКрускалаToolStripMenuItem.Enabled = true;
+            G.clearSheet();
+            G.drawALLGraph(V, pool[0]);
+            sheet.Image = G.GetBitmap();
+        }
     }
 }
