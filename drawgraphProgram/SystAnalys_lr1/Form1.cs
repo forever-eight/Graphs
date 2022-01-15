@@ -1761,32 +1761,40 @@ namespace SystAnalys_lr1
 
         private void finish_Click_1(object sender, EventArgs e)
         {
-            bool result = true;
-
-            createAdjAndOut();
-            for (int i = 0; i < V.Count; i++)
+            try
             {
-                for (int j = 0; j < V.Count; j++)
+                bool result = true;
+
+                createAdjAndOut();
+                for (int i = 0; i < V.Count; i++)
                 {
-                    if (AMatrixCopy[i, j] != AMatrix[i, j])
+                    for (int j = 0; j < V.Count; j++)
                     {
-                        result = false;
+                        if (AMatrixCopy[i, j] != AMatrix[i, j])
+                        {
+                            result = false;
+                        }
+
                     }
-
                 }
-            }
 
-            if (result)
-            {
-                MessageBox.Show("Графы изоморфны");
+                if (result)
+                {
+                    MessageBox.Show("Графы изоморфны");
+                }
+                else
+                {
+                    MessageBox.Show("Графы не изоморофны");
+                }
+                finish.Visible = false;
+                StopSearch.Visible = false;
+                изоморфизмГрафовToolStripMenuItem.Enabled = true;
             }
-            else
+            catch
             {
-                MessageBox.Show("Графы не изоморофны");
+                MessageBox.Show("Графы не изоморфны", "OK",
+                        MessageBoxButtons.OK);
             }
-            finish.Visible = false;
-            StopSearch.Visible = false;
-            изоморфизмГрафовToolStripMenuItem.Enabled = true;
         }
     }
 }
