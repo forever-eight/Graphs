@@ -1796,5 +1796,79 @@ namespace SystAnalys_lr1
                         MessageBoxButtons.OK);
             }
         }
+
+        private void связностьГрафаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = true;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            drag.Enabled = true;
+            deleteALLButton.Enabled = true;
+            undo.Enabled = true;
+            redo.Enabled = true;
+            StopSearch.Visible = true;
+            panel1.Visible = false;
+
+            try
+            {
+
+                if (AMatrix == null)
+                {
+                    AMatrix = new int[V.Count, V.Count];
+                }
+
+                bool[] visited = new bool[V.Count];
+                for (int i = 0; i < V.Count; i++)
+                    visited[i] = false;
+
+                int count = 0;
+                for (int i = 0; i < V.Count; ++i)
+                {
+                    for (int j = 0; j < V.Count; ++j)
+                    {
+                        if (AMatrix[i, j] == 1)
+                        {
+                            if (visited[j] == false)
+                            {
+                                visited[j] = true;
+                                count++;
+                            }
+                        }
+                    }
+                }
+
+                if (count == V.Count)
+                {
+                    count = 0;
+                    MessageBox.Show("Граф является связным)");
+                    foreach(var line in L)
+                    {
+                        if (line.direction != null)
+                        {
+                            count++;
+                        }
+                    }
+                    if (count == L.Count())
+                    {
+                        MessageBox.Show("Граф ориентированный");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Граф не ориентированный");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Граф не является связным(");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка", "OK",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

@@ -74,6 +74,7 @@
             this.StopSearch = new System.Windows.Forms.Button();
             this.next = new System.Windows.Forms.Button();
             this.finish = new System.Windows.Forms.Button();
+            this.связностьГрафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             this.panel1.SuspendLayout();
@@ -202,7 +203,8 @@
             this.радиусдиаметрИСтепениToolStripMenuItem,
             this.алгоритмКрускалаToolStripMenuItem,
             this.раскраскаГрафаToolStripMenuItem,
-            this.изоморфизмГрафовToolStripMenuItem});
+            this.изоморфизмГрафовToolStripMenuItem,
+            this.связностьГрафаToolStripMenuItem});
             this.задачиТеорииГрафовToolStripMenuItem.Name = "задачиТеорииГрафовToolStripMenuItem";
             this.задачиТеорииГрафовToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.задачиТеорииГрафовToolStripMenuItem.Text = "Задачи теории графов";
@@ -517,6 +519,13 @@
             this.finish.UseVisualStyleBackColor = true;
             this.finish.Click += new System.EventHandler(this.finish_Click_1);
             // 
+            // связностьГрафаToolStripMenuItem
+            // 
+            this.связностьГрафаToolStripMenuItem.Name = "связностьГрафаToolStripMenuItem";
+            this.связностьГрафаToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.связностьГрафаToolStripMenuItem.Text = "Связность графа";
+            this.связностьГрафаToolStripMenuItem.Click += new System.EventHandler(this.связностьГрафаToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -571,7 +580,6 @@
         private System.Windows.Forms.ToolStripMenuItem матрицуИнциденстностиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem картинкуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходИзПрограммыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem задачиТеорииГрафовToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оАвтореToolStripMenuItem;
@@ -600,6 +608,8 @@
         private System.Windows.Forms.ToolStripMenuItem изоморфизмГрафовToolStripMenuItem;
         private System.Windows.Forms.Button next;
         private System.Windows.Forms.Button finish;
+        private System.Windows.Forms.ToolStripMenuItem связностьГрафаToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem задачиТеорииГрафовToolStripMenuItem;
     }
 }
 
