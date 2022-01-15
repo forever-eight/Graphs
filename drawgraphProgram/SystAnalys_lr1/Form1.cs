@@ -1538,9 +1538,9 @@ namespace SystAnalys_lr1
         private void радиусдиаметрИСтепениToolStripMenuItem_Click(object sender, EventArgs e)
         {
             chainButton.PerformClick();
-            
+            string Element = (string)listBoxMatrix.Items[listBoxMatrix.Items.Count-1];
 
-            MessageBox.Show("Диаметр:" + Graphdiameter + "\n" + "Радиус:");
+            MessageBox.Show("Диаметр:" + Graphdiameter + "\n" + "Радиус:"+Element);
         }
 
         private bool SearchInPool(ref List<List<Line>> pool, int item, out int iter)
